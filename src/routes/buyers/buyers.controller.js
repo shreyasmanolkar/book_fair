@@ -1,13 +1,33 @@
+const { users, ROLE } = require('../../models/data');
+
 function buyerAuth(req, res){
     res.send('buyer authorization')
 };
 
-function buyerSignup(req, res){
-    res.send("buyer sign up");
+async function buyerSignup(req, res){
+    console.log(req.body);
+    try{
+        const user = {
+            id: Number(new Date().getTime()),
+            name: req.body.name,
+            role: ROLE.BUYER
+        };
+
+        await users.push(user);
+        res.send(users);
+    } catch(err){
+        res.json({status: 'error', error: 'Duplicate Email'});
+    }
 };
 
-function buyerLogin(req, res){
-    res.send("buyer login");
+async function buyerLogin(req, res){
+    const name = req.body.name;
+    const userStats = users.find(user => user.name.toLowerCase() === name.toLowerCase());
+    if(userStats){
+        req.user = userStats; 
+        res.json({"status": req.user});
+    }
+    res.json({status: 'Invalid User Name'});
 };
 
 function buyerProfile(req, res){
