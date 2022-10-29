@@ -1,4 +1,9 @@
 const express = require('express');
+const sellersRouter = express.Router();
+
+const { authRole, authUser } = require('../../auth/basicAuth');
+const { setUser } = require('../../auth/setUser');
+const { ROLE } = require('../../models/data');
 
 const {    
     sellerAuth,
@@ -9,11 +14,15 @@ const {
     addNewBook,
     sellersOrders } = require('./sellers.controller');
    
-const sellersRouter = express.Router();
+sellersRouter.use(express.json());
 
 sellersRouter.get('/', sellerAuth);
-sellersRouter.get('/new', sellerSignup);
-sellersRouter.get('/login', sellerLogin);
+sellersRouter.post('/new', sellerSignup);
+sellersRouter.post('/login', sellerLogin);
+
+sellersRouter.use(setUser);
+sellersRouter.use(authUser);
+sellersRouter.use(authRole(ROLE.SELLER));
 
 sellersRouter.get('/:sellerId', sellerProfile);
 
