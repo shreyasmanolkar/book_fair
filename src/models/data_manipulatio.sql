@@ -217,3 +217,20 @@ INSERT INTO books (
     450,
     'life of karna'
 );
+
+
+INSERT INTO carts (
+    buyer_id
+) VALUES (
+    1
+);
+
+INSERT INTO orders (
+    cart_id,
+    book_id,
+    quantity
+) VALUES (
+    5,
+    12,
+    1
+);
