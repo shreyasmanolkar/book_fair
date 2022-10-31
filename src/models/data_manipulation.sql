@@ -281,3 +281,33 @@ INSERT INTO orders (
     12,
     1
 );
+
+INSERT INTO orders (
+    cart_id,
+    book_id,
+    quantity,
+    shop_id
+) VALUES (
+    5,
+    16,
+    3,
+    4
+);
+
+UPDATE orders
+SET book_id = 14,
+    quantity = 3,
+    shop_id = 4
+WHERE cart_id = 5;
+
+
+SELECT 
+o.order_id, 
+o.book_id, 
+c.buyer_id, 
+b.full_name,
+o.quantity
+FROM "public"."orders" AS "o"
+JOIN "public"."carts" AS "c" ON o.cart_id = c.cart_id
+JOIN "public"."buyers" AS "b" ON c.buyer_id = b.buyer_id
+WHERE o.shop_id = 4;

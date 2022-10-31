@@ -90,8 +90,6 @@ async function sellersBooks(req, res){
 };
 
 async function addNewBook(req, res){
-    const sellerId = Number(req.params.sellerId);
-
     const name = req.body.name.toLowerCase();
     const stock = req.body.stock;
     const image_url = req.body.image_url;
@@ -121,9 +119,33 @@ async function addNewBook(req, res){
     res.json(`Book Added`);
 };
 
-function sellersOrders(req, res){
+async function sellersOrders(req, res){
     const sellerId = Number(req.params.sellerId);
-    res.send(`All Orders of seller ${sellerId}`);
+
+    const shopDetail = await pool.query(
+        `SELECT * 
+        FROM "public"."shops"
+        WHERE seller_id = $1`,
+        [sellerId]
+    );
+
+    const shopId = shopDetail.rows[0].shop_id;
+
+    const sellersOrders = await pool.query(
+        `SELECT 
+        o.order_id, 
+        o.book_id, 
+        c.buyer_id, 
+        b.full_name,
+        o.quantity
+        FROM "public"."orders" AS "o"
+        JOIN "public"."carts" AS "c" ON o.cart_id = c.cart_id
+        JOIN "public"."buyers" AS "b" ON c.buyer_id = b.buyer_id
+        WHERE o.shop_id = $1 `,
+        [shopId]
+    )
+
+    res.json(sellersOrders.rows);   
 };
 
 module.exports = {
