@@ -1,7 +1,7 @@
 const express = require('express');
 const sellersRouter = express.Router();
 
-const { authRole, authUser } = require('../../auth/basicAuth');
+const { authSeller, authUser } = require('../../auth/basicAuth');
 const { setUser } = require('../../auth/setUser');
 const { ROLE } = require('../../models/data');
 
@@ -22,12 +22,12 @@ sellersRouter.post('/login', sellerLogin);
 
 sellersRouter.use(setUser);
 sellersRouter.use(authUser);
-sellersRouter.use(authRole(ROLE.SELLER));
+// sellersRouter.use(authSeller);
 
-sellersRouter.get('/:sellerId', sellerProfile);
+sellersRouter.get('/:sellerId', authSeller, sellerProfile);
 
-sellersRouter.get('/:sellerId/books', sellersBooks);
-sellersRouter.get('/:sellerId/books/new', addNewBook);
+sellersRouter.get('/:sellerId/books', authSeller, sellersBooks);
+sellersRouter.get('/:sellerId/books/new', authSeller, addNewBook);
 
 sellersRouter.get('/:sellerId/orders', sellersOrders);
 

@@ -1,5 +1,9 @@
+const pool = require('../models/database');
+
 function authUser(req, res, next){
-    if(req.user == null){
+    let reqUser = req.user;
+
+    if(reqUser == null || undefined){
         res.status(403);
         return res.send('you need to sign in');
     }
@@ -8,7 +12,7 @@ function authUser(req, res, next){
 
 function authRole(role){
     return (req, res, next)=>{
-        if(req.user.role !== role){
+        if(req.user[0].seller_id !== role){
             res.status(401);
             return res.send('Not Allowed!');
         }
@@ -17,7 +21,29 @@ function authRole(role){
     }
 };
 
+async function authSeller(req, res, next){    
+    const paramsSellerId = Number(req.params.sellerId);
+    const full_name = req.body.full_name;
+
+    const authId = await pool.query(
+        `SELECT seller_id
+        FROM "public"."sellers"
+        WHERE full_name = $1`,
+        [full_name]
+    );
+        
+    const validId = authId.rows.map(auth => auth.seller_id);
+
+    if(validId[0] !== paramsSellerId){
+        res.status(401);
+        return res.send('Not Allowed!');
+    }
+            
+    next();
+};
+
 module.exports = {
     authUser,
-    authRole
+    authRole,
+    authSeller
 };

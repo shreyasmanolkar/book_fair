@@ -1,11 +1,19 @@
-const { users } = require('../models/data');  
+ const pool = require('../models/database');
 
-function setUser(req, res, next){
+async function setUser(req, res, next){
     const userId = req.body.userId; 
-    if(userId){
-        req.user = users.find(user => user.id === userId);
-    };
-    console.log(req.user);
+
+    const userAuth = await pool.query(
+        `SELECT * 
+        FROM "public"."sellers"
+        WHERE seller_id = $1`,
+        [userId]
+        );
+
+        if(userAuth.rows){
+            const user_id = userAuth.rows.map(usr => usr.seller_id);
+            req.user = user_id;
+        }
     next();
 };
 

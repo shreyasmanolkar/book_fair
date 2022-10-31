@@ -1,12 +1,20 @@
 const express = require('express');
 const app = express();
+const pool = require('./models/database');
 
 const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
 const viewSellersRouter = require('./routes/viewSellers/viewSellers.router');
 
-app.get('/', (req, res) => {
-    res.send('Home page');
+app.get('/', async (req, res) => {    
+    try{
+        const allBooks = await pool.query(
+            `SELECT * FROM "public"."books"`
+        );
+        res.json(allBooks.rows);
+    } catch(err){
+        console.error(err.message);
+    }
 });
 
 app.use('/seller', sellerRouter);

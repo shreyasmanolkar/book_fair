@@ -218,6 +218,53 @@ INSERT INTO books (
     'life of karna'
 );
 
+INSERT INTO books (
+    "name",
+    stock,
+    image_url,
+    seller_id,
+    price,
+    "description"
+) VALUES (
+    'The Magicians of Mazda',
+    3200,
+    'https://m.media-amazon.com/images/I/71fU-w9xCLL._AC_SX960_SY720_.jpg',
+    9,
+    264,
+    'A fleet of boats dock at the port of Sanjan in Gujarat in 720 CE. They carry eighteen thousand frightened souls fleeing the cruelty of Irans Umayyad Caliphate. Chanting Sanskrit-like prayers, the high priest consecrates a sacred fire to thank their god, Ahura Mazda, leading them to a new home and hope. He uses a mysterious substance to spark the flame, but few know of its miraculous properties or provenance.'
+);
+
+INSERT INTO books (
+    "name",
+    stock,
+    image_url,
+    seller_id,
+    price,
+    "description"
+) VALUES (
+    'Thavaasmi - Life and skills through Ramayana',
+    1000,
+    'https://scontent.fpnq5-1.fna.fbcdn.net/v/t1.6435-9/123495922_109492740966233_8357890112087796996_n.jpg?stp=cp0_dst-jpg_e15_q65_s480x480&_nc_cat=104&ccb=1-7&_nc_sid=110474&_nc_ohc=whhwPnxmAPkAX-Jjbra&_nc_ht=scontent.fpnq5-1.fna&oh=00_AfCgayulfPxVU9pZrI85RRlXuLB2f8sr4U3OOn53myzw9A&oe=63856171',
+    9,
+    1920,
+    'Ramayana and Bhagavadgeetha are presented as mirrors and lifelines of humanity. Ramayana presented with Human Angle.'
+);
+
+INSERT INTO books (
+    "name",
+    stock,
+    image_url,
+    seller_id,
+    price,
+    "description"
+) VALUES (
+    'THE BEAUTIFUL TREE',
+    420,
+    'https://m.media-amazon.com/images/I/419HyysadcL._SX323_BO1,204,203,200_.jpg',
+    9,
+    400,
+    'He authored The Beautiful Tree: Indigenous Indian Education in the Eighteenth Century (1983),[4] Indian Science and Technology in the Eighteenth Century (1971) and Civil Disobedience and Indian Tradition (1971), among other seminal works, which have led to a radical reappraisal of conventional views of the cultural, scientific and technological achievements of Indian society at the eve of the establishment of Company rule in India.'
+);
 
 INSERT INTO carts (
     buyer_id

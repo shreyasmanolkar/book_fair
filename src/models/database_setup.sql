@@ -46,3 +46,14 @@ CREATE TABLE orders (
     CONSTRAINT fk_cart FOREIGN KEY (cart_id) REFERENCES carts(cart_id),
     CONSTRAINT fk_book FOREIGN KEY (book_id) REFERENCES books(book_id)
 );
+
+ALTER TABLE "public"."orders"
+ADD COLUMN shop_id INT,
+ADD CONSTRAINT fk_shop_id FOREIGN KEY (shop_id) REFERENCES shops(shop_id);
+
+ALTER TABLE "public"."orders"
+ADD COLUMN seller_id INT,
+ADD CONSTRAINT fk_seller_id FOREIGN KEY (seller_id) REFERENCES sellers(seller_id);
+
+ALTER TABLE "public"."orders"
+DROP COLUMN seller_id;
