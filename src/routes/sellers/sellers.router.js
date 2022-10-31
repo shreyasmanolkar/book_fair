@@ -22,13 +22,12 @@ sellersRouter.post('/login', sellerLogin);
 
 sellersRouter.use(setUser);
 sellersRouter.use(authUser);
-// sellersRouter.use(authSeller);
 
 sellersRouter.get('/:sellerId', authSeller, sellerProfile);
 
 sellersRouter.get('/:sellerId/books', authSeller, sellersBooks);
 sellersRouter.get('/:sellerId/books/new', authSeller, addNewBook);
 
-sellersRouter.get('/:sellerId/orders', sellersOrders);
+sellersRouter.get('/:sellerId/orders', authSeller, sellersOrders);
 
 module.exports = sellersRouter;

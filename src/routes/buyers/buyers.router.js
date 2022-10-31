@@ -1,7 +1,7 @@
 const express = require('express');
 const buyersRouter = express.Router();
 
-const { authRole, authUser } = require('../../auth/basicAuth');
+const { authBuyer, authUser } = require('../../auth/basicAuth');
 const { setUser } = require('../../auth/setUser'); 
 const { ROLE } = require('../../models/data');
 
@@ -19,7 +19,7 @@ buyersRouter.post('/login', buyerLogin);
 
 buyersRouter.use(setUser);
 buyersRouter.use(authUser);
-buyersRouter.use(authRole(ROLE.BUYER));
+// buyersRouter.use(authRole(ROLE.BUYER));
 
 buyersRouter.get('/:buyerId', buyerProfile);
 buyersRouter.get('/:buyerId/cart', buyerCart);

@@ -10,9 +10,6 @@ async function sellerSignup(req, res){
         const full_name = req.body.full_name.toLowerCase();
         const email = req.body.email.toLowerCase();
 
-        console.log(full_name);
-        console.log(email);
-
         await pool.query(
             `INSERT INTO sellers (
                 full_name,
@@ -33,9 +30,6 @@ async function sellerLogin(req, res){
     try{
         const full_name = req.body.full_name.toLowerCase();
         const email = req.body.email.toLowerCase();
-
-        console.log(full_name);
-        console.log(email);
 
         const user = await pool.query(
             `SELECT *
