@@ -3,7 +3,6 @@ const sellersRouter = express.Router();
 
 const { authSeller, authUser } = require('../../auth/basicAuth');
 const { setUser } = require('../../auth/setUser');
-const { ROLE } = require('../../models/data');
 
 const {    
     sellerAuth,
