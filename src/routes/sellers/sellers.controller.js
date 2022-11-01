@@ -80,7 +80,11 @@ async function sellerProfile(req, res){
             [sellerId]
         );
     
-        res.json(sellerDetails.rows);   
+        if(!sellerDetails.rows[0]){
+            res.json('unable to find shop of seller');
+        } else {
+            res.json(sellerDetails.rows);   
+        }
     } catch (error) {
         console.log(error);
     }
@@ -96,8 +100,12 @@ async function sellersBooks(req, res){
             WHERE seller_id = $1`,
             [sellerId]
         );
-    
-        res.json(sellerBooks.rows);
+            
+        if(!sellerBooks.rows[0]){
+            res.json("seller havn't add books yet!");
+        } else {
+            res.json(sellerBooks.rows);
+        }
     } catch (error) {
         console.log(error)
     }
