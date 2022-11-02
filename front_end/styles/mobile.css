@@ -1,0 +1,39 @@
+@media all and (max-width: 600px){
+
+    /* header */
+
+    header h1{
+        font-size: 1.5em;
+    }
+
+    header #search{
+        width: 40%;
+    }
+
+    header div{
+        width: 50px;
+    }
+
+    header i{
+        font-size: .8em;
+    }
+
+    /* one */
+
+    .one h1{
+        top: 30%;
+        left: 8%;
+        font-size: 3em;
+    }
+
+    .one button{
+        left: 35%;
+    }
+
+    /* three */
+
+    .single-book{
+        padding: 20px 10%;
+    }
+
+}
