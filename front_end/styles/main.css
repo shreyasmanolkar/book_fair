@@ -144,7 +144,16 @@ header i{
     padding: 20px;
 }
 
-.book-img{
+.single-book a{
+    text-decoration: none;
+    color: #000000;
+}
+
+.single-book h2{
+    cursor: default;
+}
+
+.book-img, .book-img img{
     background-color: grey;
     height: 250px;
     width: 175px;
