@@ -63,82 +63,49 @@ header i{
     font-size: 1.2em;
 }
 
-.zero{
-    height: 100vh;
-    background-image: url(../images/hero.jpg);
-    background-position: center right;
-    position: relative;
+.hed{
+    padding: 20px 0;
 }
 
-.overlay{
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    position: absolute;
-}
-
-.one{
-    position: relative;
-    width: 50%;
-}
-
-.banner{
-    background-image: url(../images/profile.jpg);
-    background-size: cover;
-    background-position: bottom;
-    background-color: gray;
-    border-radius: 10px 10px 0 0;
-    width: 100%;
-    height: 150px;
-}
-
-.profile{
-    position: absolute;
-    background-color: #44B0E6;
-    width: 120px;
-    height: 120px;
-    top: 80px;
-    left: 75px;
-    border-radius: 50%;
-}
-
-.profile i{
-    position: absolute;
-    top: 24px;
-    left: 20px;
-    font-size: 5em;
-    color: white;
-}
-
-.display{
+.display-view{
     background-color: #FFFFFF;
     height: 400px;
-    padding: 70px 0 0 80px;
     display: flex;
     flex-direction: column;
-    border-radius: 0 0 10px 10px;
+    border-radius: 10px;
+    align-items: center;
+    margin-bottom: 50%;
 }
 
-.display p{
-    margin-bottom: 10px;
+#customers{
+    border-collapse: collapse;
+    width: 80%;
 }
 
-.btn{
-    text-decoration: none;
-    padding: 8px 18px;
+#customers td, #customers th{
+    border: 1px solid black;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers td{
+    text-align: center;
+}
+
+#customers th {
+    padding: 12px 0 12px 0;
+    text-align: center;
     background-color: #000000;
     color: #FFFFFF;
-    border-radius: 20px;
-    align-self: center;
+}
+
+.book-img{
+    height: 150px;
+    width: 100px;
+    background-color: #42A5F5;
 }
 
 @media all and (max-width: 600px){
@@ -158,18 +125,4 @@ header i{
     header i{
         font-size: .8em;
     }
-
-
-    .one{
-        width: 80%;
-    }
-
-    .two{
-        width: 100%;
-    }
-
-    .display{
-        padding-left: 30px;
-    }
-
 }
