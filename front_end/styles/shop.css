@@ -63,40 +63,11 @@ header i{
     font-size: 1.2em;
 }
 
-.zero{
-    height: 100vh;
-    background-image: url(../images/hero.jpg);
-    background-position: center right;
-    position: relative;
-}
-
-.overlay{
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    position: absolute;
-}
-
-.one{
-    position: relative;
-    width: 50%;
-}
-
 .banner{
     background-image: url(../images/profile.jpg);
     background-size: cover;
     background-position: bottom;
     background-color: gray;
-    border-radius: 10px 10px 0 0;
     width: 100%;
     height: 150px;
 }
@@ -106,35 +77,24 @@ header i{
     background-color: #44B0E6;
     width: 120px;
     height: 120px;
-    top: 80px;
-    left: 75px;
+    top: 150px;
+    left: 46%;
     border-radius: 50%;
 }
 
 .profile i{
     position: absolute;
     top: 24px;
-    left: 20px;
-    font-size: 5em;
-    color: white;
-}
-
-.profile-2{
-    position: absolute;
-    background-color: #44B0E6;
-    width: 120px;
-    height: 120px;
-    top: 80px;
-    left: 40%;
-    border-radius: 50%;
-}
-
-.profile-2 i{
-    position: absolute;
-    top: 24px;
     left: 25px;
     font-size: 5em;
     color: white;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
 }
 
 .display{
@@ -146,8 +106,38 @@ header i{
     border-radius: 0 0 10px 10px;
 }
 
-.display p{
-    margin-bottom: 10px;
+.book-display{
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.book-display:last-child{
+    padding-bottom: 100px;
+}
+
+.book-image{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img{
+    width: 60%;
+    height: 100%;
+    background-color: gray;
+}
+
+.detail{
+    width: 60%;
+}
+
+.cta{
+    padding-left: 20px;
+    width: 25;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn{
@@ -159,7 +149,7 @@ header i{
     align-self: center;
 }
 
-@media all and (max-width: 600px){
+@media all and (max-width: 1200px){
 
     header h1{
         font-size: 1.5em;
@@ -177,20 +167,34 @@ header i{
         font-size: .8em;
     }
 
-    .one{
-        width: 80%;
-    }
-
-    .two{
-        width: 100%;
-    }
-
-    .display{
-        padding-left: 30px;
-    }
-
-    .profile-2{
+    .profile{
         left: 35%;
     }
 
+    .display{
+        padding: 70px 0 0 0;
+    }
+
+    .book-display{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .book-image{
+        padding-top: 20px;
+    }
+
+    .book-img{
+        /* flex-direction: row; */
+        /* align-items: flex-end; */
+    }
+
+    .img{
+        width: 150px;
+        height: 200px;
+    }
+
+    .detail{
+        padding: 20px 0;
+    }
 }
