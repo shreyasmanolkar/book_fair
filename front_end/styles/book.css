@@ -63,90 +63,63 @@ header i{
     font-size: 1.2em;
 }
 
-.banner{
-    background-image: url(../images/profile.jpg);
-    background-size: cover;
-    background-position: bottom;
-    background-color: gray;
-    width: 100%;
-    height: 250px;
-}
-
-.profile{
-    position: absolute;
-    background-color: #44B0E6;
-    width: 120px;
-    height: 120px;
-    top: 250px;
-    left: 46%;
-    border-radius: 50%;
-}
-
-.profile i{
-    position: absolute;
-    top: 24px;
-    left: 25px;
-    font-size: 5em;
-    color: white;
-}
-
-.title{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 80px;
-}
-
 .display{
     background-color: #FFFFFF;
-    height: 400px;
-    padding: 70px 0 0 80px;
+    width: 100%;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    border-radius: 0 0 10px 10px;
+    padding: 30px;
+    position: relative;
 }
 
-.book-display{
+.section-one{
     display: flex;
-    margin-bottom: 30px;
-}
-
-.book-display:last-child{
-    padding-bottom: 100px;
 }
 
 .book-image{
-    width: 15%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .img{
-    width: 60%;
-    height: 100%;
+    width: 250px;
+    height: 350px;
     background-color: gray;
 }
 
 .detail{
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
 }
 
-.cta{
-    padding-left: 20px;
-    width: 25;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.qty{
+    font-size: 2em;
+    padding: 0 10px;
 }
 
 .btn{
-    text-decoration: none;
-    padding: 8px 18px;
+    padding: 12px 18px;
     background-color: #000000;
     color: #FFFFFF;
     border-radius: 20px;
-    align-self: center;
+}
+
+.btn-2{
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
+.section-two{
+    padding: 30px 140px;
+}
+
+.section-two p{
+    text-align: justify;
 }
 
 @media all and (max-width: 1200px){
@@ -165,31 +138,26 @@ header i{
 
     header i{
         font-size: .8em;
-    }
-
-    .profile{
-        left: 35%;
-    }
+    }    
 
     .display{
-        padding: 70px 0 0 0;
+        width: 100%;
     }
 
-    .book-display{
+    .section-one{
         flex-direction: column;
-        align-items: center;
     }
 
     .book-image{
-        padding-top: 20px;
-    }
-
-    .img{
-        width: 150px;
-        height: 200px;
+        width: 100%;
     }
 
     .detail{
-        padding: 20px 0;
+        padding-top: 20px;
     }
+
+    .section-two{
+        padding: 30px 10px;
+    }
+
 }
