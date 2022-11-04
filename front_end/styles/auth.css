@@ -25,7 +25,48 @@
 body{
     background-color: #FFFFFF;
     font-family: 'montextralight_demo', serif;
+    overflow-y: hidden;
 }
+
+
+header{
+    height: 60px;
+    position: relative;
+    width: 100%;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+header h1{
+    font-family: 'montextralight_demo', serif;
+    color: #FFFFFF;
+}
+
+header #search{
+    width: 50%;
+    height: 35px;
+    border-radius: 15px;
+    padding-left: 20px;
+}
+
+header #search:hover{
+    bottom: none;
+    outline: none;
+}
+
+header div{
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+header i{
+    color: #FFFFFF;
+    font-size: 1.2em;
+}
+
 
 .zero{
     height: 100vh;
@@ -100,4 +141,22 @@ body{
     font-family: 'montheavy_demo', sans-serif;
     text-decoration: none;
     color: #0095F6;
+}
+
+@media all and (max-width: 600px){
+    header h1{
+        font-size: 1.5em;
+    }
+
+    header #search{
+        width: 40%;
+    }
+
+    header div{
+        width: 50px;
+    }
+
+    header i{
+        font-size: .8em;
+    }
 }
