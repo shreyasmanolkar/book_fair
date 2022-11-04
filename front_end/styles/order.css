@@ -108,6 +108,16 @@ header i{
     background-color: #42A5F5;
 }
 
+.btn{
+    text-decoration: none;
+    padding: 8px 18px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 20px;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
 @media all and (max-width: 600px){
 
     header h1{

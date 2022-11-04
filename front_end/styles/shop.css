@@ -149,6 +149,10 @@ header i{
     align-self: center;
 }
 
+h1{
+    padding: 50px 150px 0 150px;
+}
+
 @media all and (max-width: 1200px){
 
     header h1{
