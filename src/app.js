@@ -6,6 +6,17 @@ const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
 const viewSellersRouter = require('./routes/viewSellers/viewSellers.router');
 
+// handlebars
+app.engine(
+    "handlebars",
+    exphbs.engine({
+      extname: "handlebars",
+      defaultLayout: "main.handlebars",
+      layoutsDir: "views/layouts/"
+    })
+);
+app.set('view engine', 'handlebars');
+
 app.get('/', async (req, res) => {    
     try{
         const allBooks = await pool.query(
