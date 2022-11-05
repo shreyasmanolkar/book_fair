@@ -749,6 +749,12 @@ header i{
     background-color: #42A5F5;
 }
 
+.order-img img{
+    height: 100%;
+    width: 100%;
+    background-color: #42A5F5;
+}
+
 .new-book-title{
     padding: 50px 150px 0 150px;
 }

@@ -1,0 +1,37 @@
+    <div class="display-order">
+        <h1 class="hed">Orders</h1>
+        <table id="customers">
+            <tr>
+                <th>Order Id</th>
+                <th>Book Id</th>
+                <th>Book Img</th>
+                <th>Book</th>
+                <th>Customer Name</th>
+                <th>Customer Address</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
+            </tr>
+
+            {{#each data.sellersOrders}}
+
+            <tr>
+                <td>{{order_id}}</td>
+                <td>{{book_id}}</td>
+                <td><div class="order-img">
+                    <img src={{image_url}} alt="img">
+                </div></td>
+                <td>{{name}}</td>
+                <td>{{buyer_name}}</td>
+                <td>{{buyer_address}}</td>
+                <td>₹ {{price}}</td>
+                <td>{{quantity}}</td>
+                <td>order placed</td>
+            </tr>
+           
+           {{/each}}
+
+        </table><br>
+        <a href="#" class="btn mr-b">View Books</a>
+        <a href="#" class="btn mr-b">Visit Shop</a>
+    </div>

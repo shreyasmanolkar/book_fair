@@ -181,17 +181,39 @@ async function sellersOrders(req, res){
             `SELECT 
             o.order_id, 
             o.book_id, 
+            bo.image_url,
             c.buyer_id, 
-            b.full_name,
+            b.full_name AS "buyer_name",
+            b.address AS "buyer_address",
+            bo.price,
+            bo.name,
             o.quantity
             FROM "public"."orders" AS "o"
             JOIN "public"."carts" AS "c" ON o.cart_id = c.cart_id
             JOIN "public"."buyers" AS "b" ON c.buyer_id = b.buyer_id
-            WHERE o.shop_id = $1 `,
+            JOIN "public"."books" AS "bo" ON bo.book_id = o.book_id
+            WHERE o.shop_id = $1`,
             [shopId]
         )
     
-        res.json(sellersOrders.rows);  
+        if(!sellersOrders.rows[0]){
+            res.render('dashboardOrdersNotFound', {
+                layout: 'dashboard.handlebars'
+            });
+        } else {
+
+            let data = {
+                sellersOrders: sellersOrders.rows
+            };
+
+            res.render('dashboardOrders', {
+                data,
+                layout: 'dashboard.handlebars'
+            });
+
+            // res.json(data);  
+        }
+
     } catch (error) {
         console.log(error)
     } 
