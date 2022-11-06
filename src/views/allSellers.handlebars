@@ -1,0 +1,27 @@
+<div class="display-center">
+        <h1 class="open-title">Sellers</h1><br><br>
+
+        {{#each data.allSellers}}
+
+        <div class="seller-profile-display">
+            <div class="profile-display-image">
+                <div class="seller-profile">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+            </div>
+            <div class="profile-display-detail">
+                <h2>{{full_name}}</h2>
+                <h3>{{email}}</h3><br>
+                <h4>{{phone_number}}</h4>
+            </div>
+            <div class="profile-display-cta">
+                <a href="#" class="btn mr-b">View Profile</a>
+                <a href="#" class="btn mr-b">View Shop</a>
+            </div>
+        </div>
+
+        {{else}}
+        <p>No Sellers Available</p>
+        {{/each}}
+
+    </div>

@@ -1,0 +1,31 @@
+    <div class="display-m">
+        <h1 class="main-title">My Cart</h1>
+
+        {{#each data.orderDetail}}
+
+        <div class="cart-order">
+            <div class="cart-book-image">
+                <div class="cart-img">
+                    <img src={{image_url}} alt="img">
+                </div>
+            </div>
+            <div class="detail">
+                <h2>{{book_name}}</h2>
+                <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
+                <h2>₹  {{price}}</h2><br>
+                <div class="quantity">
+                    <button class="c-btn">-</button>
+                    <span class="qty">{{quantity}}</span>
+                    <button class="c-btn">+</button>
+                    <button class="c-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+
+    </div>
+    <div class="total">
+        <h1>Total Amount <span>₹ 901</span></h1>
+        <button class="btn">Proceed To Buy</button>
+    </div>

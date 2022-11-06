@@ -1,0 +1,23 @@
+{{#each data.sellerDetails}}
+
+    <div class="dashboard">
+        <div class="banner-d"></div>
+        <div class="profile-d">
+            <i class="fas fa-user-tie"></i>
+        </div>
+        <div class="display-dashboard">
+            <div>
+                <h3>Seller's Full-Name</h3>
+                <p>{{full_name}}</p><br>
+                <h3>Email</h3>
+                <p>{{email}}</p><br>
+                <h3>Phone Number</h3>
+                <p>{{phone_number}}</p><br>
+            </div>
+            <a href="#" class="btn mr-b">View Orders</a>
+            <a href="#" class="btn mr-b">View Books</a>
+            <a href="#" class="btn mr-b">Visit Shop</a>
+        </div>
+    </div>
+
+{{/each}}

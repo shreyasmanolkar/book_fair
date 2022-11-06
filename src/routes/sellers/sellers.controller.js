@@ -72,18 +72,25 @@ async function sellerProfile(req, res){
         const sellerId = Number(req.params.sellerId);
 
         const sellerDetails = await pool.query(
-            `SELECT s.seller_id, s.full_name, s.email, sh.shop_name
-            FROM "public"."sellers" AS "s"
-            JOIN "public"."shops" AS  "sh" 
-            ON sh.seller_id = s.seller_id
-            WHERE s.seller_id = $1`,
+            `SELECT seller_id, full_name, email, phone_number
+            FROM "public"."sellers"
+            WHERE seller_id = $1`,
             [sellerId]
         );
     
         if(!sellerDetails.rows[0]){
+            // invalid login 
+            // create Shop  
             res.json('unable to find shop of seller');
         } else {
-            res.json(sellerDetails.rows);   
+            let data = {
+                sellerDetails: sellerDetails.rows
+            }
+
+            res.render('sellerDashboard', {
+                data,
+                layout: 'dashboard.handlebars'
+            });
         }
     } catch (error) {
         console.log(error);
@@ -95,16 +102,27 @@ async function sellersBooks(req, res){
         const sellerId = Number(req.params.sellerId);
 
         const sellerBooks = await pool.query(
-            `SELECT * 
-            FROM "public"."books"
-            WHERE seller_id = $1`,
+            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name"
+            FROM "public"."books" AS "b"
+            JOIN "public"."sellers" AS "s"
+            ON b.seller_id = s.seller_id
+            WHERE b.seller_id = $1`,
             [sellerId]
         );
             
         if(!sellerBooks.rows[0]){
-            res.json("seller havn't add books yet!");
+            res.render('dashboardBooksNotFound', {
+                layout: 'dashboard.handlebars'
+            });
         } else {
-            res.json(sellerBooks.rows);
+            let data = {
+                sellerBooks: sellerBooks.rows
+            }
+
+            res.render('dashboardBooks', {
+                data,
+                layout: 'dashboard.handlebars'
+            });
         }
     } catch (error) {
         console.log(error)

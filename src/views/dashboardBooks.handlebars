@@ -1,0 +1,29 @@
+<h1 class="home-title">My Books</h1>
+    <div class="dashboard-books">
+
+        {{#each data.sellerBooks}}
+
+        <div class="seller-book-display">
+            <div class="seller-book-image">
+                <div class="seller-img">
+                    <img src={{image_url}} alt="img">
+                </div>
+            </div>
+            <div class="seller-detail">
+                <h2>{{name}}</h2>
+                <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
+                <p>{{substring}}</p><br>
+                <h2>₹  {{price}}</h2>
+            </div>
+            <div class="seller-cta">
+                <a href="#" class="s-btn"><i class="fas fa-trash"></i></a>
+            </div>
+        </div>
+        
+        {{/each}}
+
+        <a href="#" class="btn">Add New Book</a><br>
+        <a href="#" class="btn">View Orders</a><br>
+        <a href="#" class="btn">Visit Shop</a>
+        <br><br><br>
+    </div>

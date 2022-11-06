@@ -1,0 +1,38 @@
+<div class="banner-f"></div>
+    <div class="profile-mid-center">
+        <i class="fas fa-user-tie"></i>
+    </div>
+    <div class="title-mid">
+        <h1>ALL Books</h1>
+        <h3>Owner</h3>
+        {{#each data.sellerName}}
+        <p>{{full_name}}</p>
+        {{else}}
+        <p>Lorem</p>
+        {{/each}}
+    </div>
+
+    <div class="display-mid">
+
+        {{#each data.sellerBooks}}
+
+        <div class="book-display-shops">
+            <div class="book-image">
+                <div class="shops-img">
+                    <img src={{image_url}} alt="img">
+                </div>
+            </div>
+            <div class="book-display-detail">
+                <h2>{{name}}</h2>
+                <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
+                <p>{{substring}}</p><br>
+                <h2>₹ {{price}}</h2>
+            </div>
+            <div class="book-display-cta">
+                <a href="#" class="btn">View Book</a>
+            </div>
+        </div>
+
+        {{/each}}
+
+    </div>

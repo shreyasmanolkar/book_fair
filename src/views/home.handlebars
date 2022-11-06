@@ -1,0 +1,122 @@
+<div class="overlay-container-hero">
+        <div class="overlay-hero"></div>
+        <h1>We live to server <br>book lovers.</h1>
+        <button>Get Started</button>
+    </div>
+
+    <div class="shops">
+        <h1 class="home-title">Featured Shops</h1>
+        <ul>
+
+            {{#each data.shops}}
+                <a href="#"><li>{{shop_name}}</li></a>
+            {{else}}
+            <p>No Shops</p>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="category">
+
+        <h1 class="home-title">Trending This Week</h1>
+        <div class="books-display-category">
+
+            {{#each data.trending}}
+
+            <div class="book-cover-home">
+                <a href="#">
+                    <div class="book-img-home">
+                        <img src={{image_url}} alt="img">
+                    </div>
+                </a>
+                <h3><a href="#">{{name}}</a></h3>
+                <h5><a href="#">{{full_name}}</a></h5>
+                <h2>₹ {{price}}</h2>
+            </div>
+
+            {{else}}
+            <p>No Trending Books Available</p>
+
+            {{/each}}
+
+        </div>
+
+    </div>
+
+    <div class="category">
+
+        <h1 class="home-title">Top Selling</h1>
+        <div class="books-display-category">
+
+        {{#each data.topSelling}}
+
+            <div class="book-cover-home">
+                <a href="#">
+                    <div class="book-img-home">
+                        <img src={{image_url}} alt="img">
+                    </div>
+                </a>
+                <h3><a href="#">{{name}}</a></h3>
+                <h5><a href="#">{{full_name}}</a></h5>
+                <h2>₹ {{price}}</h2>
+            </div>
+
+        {{else}}
+            <p>No Top Selling Books Available</p>
+
+        {{/each}}
+
+
+        </div>
+    </div>
+
+    <div class="category">
+        <h1 class="home-title">Best In Stock</h1>
+        <div class="books-display-category">
+
+        {{#each data.bestINStock}}
+
+            <div class="book-cover-home">
+                <a href="#">
+                    <div class="book-img-home">
+                        <img src={{image_url}} alt="img">
+                    </div>
+                </a>
+                <h3><a href="#">{{name}}</a></h3>
+                <h5><a href="#">{{full_name}}</a></h5>
+                <h2>₹ {{price}}</h2>
+            </div>
+
+        {{else}}
+            <p>No Best In Stock Books Available</p>
+
+        {{/each}}
+
+        </div>
+    </div>
+
+    <div class="category">
+        <h1 class="home-title">Recomended For You</h1>
+        <div class="books-display-category">
+
+        {{#each data.recomended}}
+
+            <div class="book-cover-home">
+                <a href="#">
+                    <div class="book-img-home">
+                        <img src={{image_url}} alt="img">
+                    </div>
+                </a>
+                <h3><a href="#">{{name}}</a></h3>
+                <h5><a href="#">{{full_name}}</a></h5>
+                <h2>₹ {{price}}</h2>
+            </div>
+
+        {{else}}
+            <p>No Recomended Books Available</p>
+
+        {{/each}}
+
+
+        </div>
+    </div>

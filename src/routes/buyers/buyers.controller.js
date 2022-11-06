@@ -89,15 +89,30 @@ async function buyerProfile(req, res){
         const buyerId = Number(req.params.buyerId);
 
         const buyerDetails = await pool.query(
-            `SELECT b.buyer_id, b.full_name, b.email, c.cart_id  
+            `SELECT b.buyer_id, b.full_name, b.email, c.cart_id, b.phone_number, b.address 
             FROM "public"."buyers" AS "b"
             JOIN "public"."carts" AS "c" 
             ON b.buyer_id = c.buyer_id
             WHERE b.buyer_id = $1;`,
             [buyerId]
         );
+        
+        if(!buyerDetails.rows[0]){
+            res.render('buyerProfileNotFound',{
+                layout: 'main.handlebars'
+            });
+        } else {
+
+            let data = {
+                buyerDetails: buyerDetails.rows
+            };
+
+            res.render('buyerProfile', {
+                data,
+                layout: 'main.handlebars'
+            });
+        }
     
-        res.json(buyerDetails.rows);   
     } catch (error) {
         console.log(error);
     }
@@ -112,9 +127,10 @@ async function buyerCart(req, res){
             o.cart_id, 
             o.order_id, 
             o.quantity, 
-            b.name AS "book name", 
+            b.name AS "book_name", 
             b.image_url,
-            s.full_name AS "seller name"
+            b.price,
+            s.full_name AS "seller_name"
             FROM "public"."orders" AS "o" 
             JOIN "public"."books" AS "b" 
             ON o.book_id = b.book_id
@@ -126,7 +142,21 @@ async function buyerCart(req, res){
             [buyerId]
         );
 
-        res.json(orderDetail.rows);
+        if(!orderDetail.rows[0]){
+            res.render('buyerLogin', {
+                layout: 'main.handlebars'
+            });
+        } else {
+
+            let data = {
+                orderDetail: orderDetail.rows
+            };
+
+            res.render('buyerCart', {
+                data,
+                layout: 'main.handlebars'
+            });
+        }
 
     } catch (error) {
         console.log(error)

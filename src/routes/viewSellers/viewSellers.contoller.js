@@ -7,7 +7,14 @@ async function allSellers(req, res){
             FROM "public"."sellers"`,
         );
 
-        res.json(allSellers.rows);
+        let data = {
+            allSellers: allSellers.rows
+        }
+
+        res.render('allSellers', {
+            data,
+            layout: 'main.handlebars'
+        });
 
     } catch (error) {
         console.log(error);
@@ -19,7 +26,7 @@ async function viewSellerProfile(req, res){
         const sellerId = Number(req.params.sellerId);
 
         const sellerDetails = await pool.query(
-            `SELECT s.seller_id, s.full_name AS "full_name", s.email, sh.shop_name
+            `SELECT s.seller_id, s.full_name AS "full_name", s.email, sh.shop_name, s.phone_number
             FROM "public"."sellers" AS "s"
             JOIN "public"."shops" AS  "sh" 
             ON sh.seller_id = s.seller_id
@@ -28,9 +35,19 @@ async function viewSellerProfile(req, res){
         );
 
         if(!sellerDetails.rows[0]){
-            res.json('incomplete profile of seller');
+            res.render('sellerNotFound',{
+                layout: 'main.handlebars'
+            });
         } else {
-            res.json(sellerDetails.rows);   
+
+            let data = {
+                sellerProfile: sellerDetails.rows
+            };
+
+            res.render('viewSellerProfile', {
+                data,
+                layout: 'main.handlebars'
+            });
         }
     } catch (error) {
         console.log(error);
@@ -41,17 +58,37 @@ async function viewSellerBooks(req, res){
     try {
         const sellerId = Number(req.params.sellerId);
 
-        const sellerBooks = await pool.query(
-            `SELECT * 
-            FROM "public"."books"
+        const sellerName = await pool.query(
+            `SELECT full_name
+            FROM "public"."sellers"
             WHERE seller_id = $1`,
+            [sellerId]
+        );
+
+        const sellerBooks = await pool.query(
+            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name"
+            FROM "public"."books" AS "b"
+            JOIN "public"."sellers" AS "s"
+            ON b.seller_id = s.seller_id
+            WHERE b.seller_id = $1`,
             [sellerId]
         );
             
         if(!sellerBooks.rows[0]){
-            res.json("seller havn't add books yet!");
+            res.render('viewSellerBooksNotFound', {
+                layout: 'main.handlebars'
+            });
         } else {
-            res.json(sellerBooks.rows);
+
+            let data = {
+                sellerName: sellerName.rows,
+                sellerBooks: sellerBooks.rows
+            }
+            
+            res.render('viewSellerBooks', {
+                data,
+                layout: 'main.handlebars'
+            });
         }
 
     } catch (error) {

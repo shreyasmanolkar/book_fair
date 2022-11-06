@@ -1,0 +1,27 @@
+
+    {{#each data.buyerDetails}}
+    
+    <div class="bg-overlay-container">
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="profile-section">
+                <div class="banner-m"></div>
+                <div class="profile-mid-left">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <div class="profile-display">
+                    <h3>Full-Name</h3>
+                    <p>{{full_name}}</p>
+                    <h3>Email</h3>
+                    <p>{{email}}</p>
+                    <h3>Address</h3>
+                    <p>{{address}}</p>
+                    <h3>Phone Number</h3>
+                    <p>{{phone_number}}</p>
+                    <a href="#" class="btn">My Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{/each}}

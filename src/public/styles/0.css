@@ -149,6 +149,7 @@ header i{
 
 .book-cover-home{
     padding: 20px;
+    word-wrap: break-word;
 }
 
 .book-cover-home a{
@@ -168,6 +169,7 @@ header i{
 
 .book-cover-home h3{
     padding-top: 10px;
+    width: 200px;
 }
 
 /* ------------------------- Auth Pages ----------------------- */
@@ -311,6 +313,12 @@ header i{
 
 .shops-img{
     width: 60%;
+    height: 100%;
+    background-color: gray;
+}
+
+.shops-img img{
+    width: 100%;
     height: 100%;
     background-color: gray;
 }
@@ -496,6 +504,13 @@ header i{
     background-color: gray;
 }
 
+.cart-img img{
+    width: 100%;
+    height: 100%;
+}
+
+
+
 .c-btn{
     background-color: #000000;
     color: #FFFFFF;
@@ -658,6 +673,12 @@ header i{
 
 .seller-img{
     width: 60%;
+    height: 100%;
+    background-color: gray;
+}
+
+.seller-img img{ 
+    width: 100%;
     height: 100%;
     background-color: gray;
 }

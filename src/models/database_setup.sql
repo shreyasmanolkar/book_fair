@@ -57,3 +57,12 @@ ADD CONSTRAINT fk_seller_id FOREIGN KEY (seller_id) REFERENCES sellers(seller_id
 
 ALTER TABLE "public"."orders"
 DROP COLUMN seller_id;
+
+ALTER TABLE "public"."sellers" 
+ADD COLUMN phone_number INT NOT NULL DEFAULT '0123456789';
+
+ALTER TABLE "public"."buyers" 
+ADD COLUMN phone_number INT NOT NULL DEFAULT '0123456789';
+
+ALTER TABLE "public"."buyers"
+ADD COLUMN Address VARCHAR(512) NOT NULL DEFAULT '221b Baker St, London NW1 6XE,UK';
