@@ -1,8 +1,16 @@
 const pool = require('../../models/database');
 
 function sellerAuth(req, res){
-    res.send("seller authorization");
+    res.render('seller-sign-log',{
+        layout: 'dashboard.handlebars'
+    });
 };
+
+async function sellerSignupDisplay(req, res){
+    res.render('seller-sign-up',{
+        layout: 'dashboard.handlebars'
+    });
+}
 
 async function sellerSignup(req, res){
     try{
@@ -38,6 +46,13 @@ async function sellerSignup(req, res){
     }
 };
 
+async function sellerLoginDisplay(req, res){
+    res.render('seller-log-in',{
+        layout: 'dashboard.handlebars'
+    });
+}
+
+
 async function sellerLogin(req, res){
     try{
         const full_name = req.body.full_name.toLowerCase();
@@ -66,6 +81,35 @@ async function sellerLogin(req, res){
     }
 
 };
+
+async function addNewShop(req, res){
+
+    // incomplete 
+   
+    res.render('addNewShop', {
+        layout: 'dashboard.handlebars'
+    });
+}
+
+async function addNewShopPost(req, res){
+
+    try{
+
+        const shop_name = req.body.shop_name.toLowerCase();
+
+
+        await pool.query(
+
+        )
+
+        // res.render('addNewShop', {
+        //     layout: 'dashboard.handlebars'
+        // });
+
+    } catch(err){
+        console.log(err);
+    }
+}
 
 async function sellerProfile(req, res){
     try {
@@ -129,6 +173,12 @@ async function sellersBooks(req, res){
     }
 };
 
+async function addNewBookDisplay(req, res){
+    res.render('addNewBookDisplay', {
+        layout: 'dashboard.handlebars'
+    });
+}
+
 async function addNewBook(req, res){
     try {
         const name = req.body.name.toLowerCase();
@@ -174,45 +224,48 @@ async function sellersOrders(req, res){
             WHERE seller_id = $1`,
             [sellerId]
         );
-    
-        const shopId = shopDetail.rows[0].shop_id;
-    
-        const sellersOrders = await pool.query(
-            `SELECT 
-            o.order_id, 
-            o.book_id, 
-            bo.image_url,
-            c.buyer_id, 
-            b.full_name AS "buyer_name",
-            b.address AS "buyer_address",
-            bo.price,
-            bo.name,
-            o.quantity
-            FROM "public"."orders" AS "o"
-            JOIN "public"."carts" AS "c" ON o.cart_id = c.cart_id
-            JOIN "public"."buyers" AS "b" ON c.buyer_id = b.buyer_id
-            JOIN "public"."books" AS "bo" ON bo.book_id = o.book_id
-            WHERE o.shop_id = $1`,
-            [shopId]
-        )
-    
-        if(!sellersOrders.rows[0]){
-            res.render('dashboardOrdersNotFound', {
-                layout: 'dashboard.handlebars'
-            });
+        
+        if(!shopDetail.rows[0]){
+            res.json('create shop');
         } else {
+            const shopId = shopDetail.rows[0].shop_id;
 
-            let data = {
-                sellersOrders: sellersOrders.rows
-            };
-
-            res.render('dashboardOrders', {
-                data,
-                layout: 'dashboard.handlebars'
-            });
-
-            // res.json(data);  
+            const sellersOrders = await pool.query(
+                `SELECT 
+                o.order_id, 
+                o.book_id, 
+                bo.image_url,
+                c.buyer_id, 
+                b.full_name AS "buyer_name",
+                b.address AS "buyer_address",
+                bo.price,
+                bo.name,
+                o.quantity
+                FROM "public"."orders" AS "o"
+                JOIN "public"."carts" AS "c" ON o.cart_id = c.cart_id
+                JOIN "public"."buyers" AS "b" ON c.buyer_id = b.buyer_id
+                JOIN "public"."books" AS "bo" ON bo.book_id = o.book_id
+                WHERE o.shop_id = $1`,
+                [shopId]
+            )
+        
+            if(!sellersOrders.rows[0]){
+                res.render('dashboardOrdersNotFound', {
+                    layout: 'dashboard.handlebars'
+                });
+            } else {
+    
+                let data = {
+                    sellersOrders: sellersOrders.rows
+                };
+    
+                res.render('dashboardOrders', {
+                    data,
+                    layout: 'dashboard.handlebars'
+                });
+            }
         }
+    
 
     } catch (error) {
         console.log(error)
@@ -221,10 +274,15 @@ async function sellersOrders(req, res){
 
 module.exports = {
     sellerAuth,
+    sellerSignupDisplay,
     sellerSignup,
     sellerLogin,
+    sellerLoginDisplay,
+    addNewShop,
+    addNewShopPost,
     sellerProfile,
     sellersBooks,
     addNewBook,
-    sellersOrders
+    sellersOrders,
+    addNewBookDisplay
 };

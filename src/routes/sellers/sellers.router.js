@@ -7,16 +7,25 @@ const sellersRouter = express.Router();
 const {    
     sellerAuth,
     sellerSignup,
+    sellerSignupDisplay,
     sellerLogin,
+    sellerLoginDisplay,
     sellerProfile,
     sellersBooks,
     addNewBook,
+    addNewBookDisplay,
+    addNewShop,
+    addNewShopPost,
     sellersOrders } = require('./sellers.controller');
    
 sellersRouter.use(express.json());
 
 sellersRouter.get('/', sellerAuth);
+
+sellersRouter.get('/new', sellerSignupDisplay);
 sellersRouter.post('/new', sellerSignup);
+
+sellersRouter.get('/login', sellerLoginDisplay);
 sellersRouter.post('/login', sellerLogin);
 
 // sellersRouter.use(setUser);
@@ -33,8 +42,12 @@ sellersRouter.post('/login', sellerLogin);
 
 sellersRouter.get('/:sellerId', sellerProfile);
 
+sellersRouter.get('/:sellerId/newshop', addNewShop);
+sellersRouter.post('/:sellerId/newshop', addNewShopPost);
+
 sellersRouter.get('/:sellerId/books', sellersBooks);
-sellersRouter.get('/:sellerId/books/new', addNewBook);
+sellersRouter.get('/:sellerId/books/new', addNewBookDisplay);
+sellersRouter.post('/:sellerId/books/new', addNewBook);
 
 sellersRouter.get('/:sellerId/orders', sellersOrders);
 
