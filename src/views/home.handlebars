@@ -9,10 +9,12 @@
         <ul>
 
             {{#each data.shops}}
-                <a href="#"><li>{{shop_name}}</li></a>
+                <a href="/sellers/{{seller_id}}/books"><li>{{shop_name}}</li></a>
             {{else}}
             <p>No Shops</p>
             {{/each}}
+            <a href="/sellers/"><li>View All Sellers</li></a>
+            <a href="/books/"><li>View All Books</li></a>
         </ul>
     </div>
 
@@ -24,13 +26,13 @@
             {{#each data.trending}}
 
             <div class="book-cover-home">
-                <a href="#">
+                <a href="/books/{{book_id}}">
                     <div class="book-img-home">
                         <img src={{image_url}} alt="img">
                     </div>
                 </a>
-                <h3><a href="#">{{name}}</a></h3>
-                <h5><a href="#">{{full_name}}</a></h5>
+                <h3><a href="/books/{{book_id}}">{{name}}</a></h3>
+                <h5><a href="/sellers/{{seller_id}}">{{full_name}}</a></h5>
                 <h2>₹ {{price}}</h2>
             </div>
 
@@ -51,13 +53,13 @@
         {{#each data.topSelling}}
 
             <div class="book-cover-home">
-                <a href="#">
+                <a href="/books/{{book_id}}">
                     <div class="book-img-home">
                         <img src={{image_url}} alt="img">
                     </div>
                 </a>
-                <h3><a href="#">{{name}}</a></h3>
-                <h5><a href="#">{{full_name}}</a></h5>
+                <h3><a href="/books/{{book_id}}">{{name}}</a></h3>
+                <h5><a href="/sellers/{{seller_id}}">{{full_name}}</a></h5>
                 <h2>₹ {{price}}</h2>
             </div>
 
@@ -77,13 +79,13 @@
         {{#each data.bestINStock}}
 
             <div class="book-cover-home">
-                <a href="#">
+                <a href="/books/{{book_id}}">
                     <div class="book-img-home">
                         <img src={{image_url}} alt="img">
                     </div>
                 </a>
-                <h3><a href="#">{{name}}</a></h3>
-                <h5><a href="#">{{full_name}}</a></h5>
+                <h3><a href="/books/{{book_id}}">{{name}}</a></h3>
+                <h5><a href="/sellers/{{seller_id}}">{{full_name}}</a></h5>
                 <h2>₹ {{price}}</h2>
             </div>
 
@@ -102,13 +104,13 @@
         {{#each data.recomended}}
 
             <div class="book-cover-home">
-                <a href="#">
+                <a href="/books/{{book_id}}">
                     <div class="book-img-home">
                         <img src={{image_url}} alt="img">
                     </div>
                 </a>
-                <h3><a href="#">{{name}}</a></h3>
-                <h5><a href="#">{{full_name}}</a></h5>
+                <h3><a href="/books/{{book_id}}">{{name}}</a></h3>
+                <h5><a href="/sellers/{{seller_id}}">{{full_name}}</a></h5>
                 <h2>₹ {{price}}</h2>
             </div>
 

@@ -29,12 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (req, res) => {    
     try{
         const shops = await pool.query(
-            `SELECT shop_name 
+            `SELECT seller_id, shop_name 
             FROM "public"."shops"`
         );
 
         const trending = await pool.query(
-            `SELECT b.name, b.image_url, b.price , s.full_name
+            `SELECT b.name, b.image_url, b.price , s.full_name, b.book_id, s.seller_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id
@@ -43,7 +43,7 @@ app.get('/', async (req, res) => {
         );
 
         const topSelling = await pool.query(
-            `SELECT b.price, b.stock, b.image_url, b.name, s.full_name
+            `SELECT b.price, b.stock, b.image_url, b.name, s.full_name, b.book_id, s.seller_id
             FROM "public"."orders" AS "o" 
             JOIN "public"."books" AS "b" 
             ON b.book_id = o.book_id
@@ -54,7 +54,7 @@ app.get('/', async (req, res) => {
         );
 
         const bestINStock = await pool.query(
-            `SELECT b.name, b.image_url, b.price , s.full_name
+            `SELECT b.name, b.image_url, b.price , s.full_name, b.book_id, s.seller_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id
@@ -63,7 +63,7 @@ app.get('/', async (req, res) => {
         );
         
         const recomended = await pool.query(
-            `SELECT b.name, b.image_url, b.price , s.full_name
+            `SELECT b.name, b.image_url, b.price , s.full_name, b.book_id, s.seller_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id
@@ -83,6 +83,9 @@ app.get('/', async (req, res) => {
             data,
             layout: 'main.handlebars'
         });
+
+        // res.json(data);
+        
     } catch(err){
         console.error(err.message);
     }

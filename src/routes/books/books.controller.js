@@ -4,7 +4,7 @@ async function allBooks(req, res){
     try{
 
         const allBooks = await pool.query(
-            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name"
+            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id, b.book_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id`

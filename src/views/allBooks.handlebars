@@ -10,12 +10,12 @@
             </div>
             <div class="book-display-detail">
                 <h2>{{name}}</h2>
-                <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
+                <h5>Seller: <a href="/sellers/{{seller_id}}">{{seller_name}}</a></h5><br>
                 <p>{{substring}}</p><br>
                 <h2>₹ {{price}}</h2>
             </div>
             <div class="book-display-cta">
-                <a href="#" class="btn">View Book</a>
+                <a href="/books/{{book_id}}" class="btn">View Book</a>
             </div>
         </div>
 
