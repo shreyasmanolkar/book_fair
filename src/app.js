@@ -7,6 +7,7 @@ const path = require('path');
 const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
 const viewSellersRouter = require('./routes/viewSellers/viewSellers.router');
+const booksRouter = require('./routes/books/books.router');
 
 // handlebars
 app.engine(
@@ -90,5 +91,6 @@ app.get('/', async (req, res) => {
 app.use('/seller', sellerRouter);
 app.use('/buyer', buyerRouter);
 app.use('/sellers', viewSellersRouter);
+app.use('/books', booksRouter);
 
 module.exports = app;

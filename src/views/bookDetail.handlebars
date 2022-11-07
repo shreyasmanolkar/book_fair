@@ -1,0 +1,28 @@
+ {{#each data.bookInfo}}
+
+ <div class="display-b">
+        <div class="book-section-one">
+            <div class=" b-book-image">
+                <div class="b-img">
+                    <img  class="b-img" src={{image_url}} alt="book-img">
+                </div>
+            </div>
+            <div class="b-detail">
+                <h2>{{name}}</h2>
+                <h5>Seller: <a href="#">{{full_name}}</a></h5><br>
+                <h2>₹  {{price}}</h2><br>
+                <div class="quantity">
+                    <button class="sub b-btn-2">-</button>
+                    <span class="qty">1</span>
+                    <button class="add b-btn-2">+</button><br><br>
+                </div>
+                <button class="b-btn" >Add To Cart</button>
+            </div>
+        </div>
+        <div class="book-section-two">
+            <h4>Description:</h4><br>
+            <p>{{description}}</p>
+            </div>
+</div>
+
+{{/each}}
