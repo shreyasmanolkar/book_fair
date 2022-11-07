@@ -1,8 +1,16 @@
 const pool = require('../../models/database');
 
 function buyerAuth(req, res){
-    res.send('buyer authorization')
+    res.render('buyer-sign-log', {
+        layout: 'main.handlebars'
+    });
 };
+
+async function buyerSignupDisplay(req, res){
+    res.render('buyer-sign-up', {
+        layout: 'main.handlebars'
+    });
+}
 
 async function buyerSignup(req, res){
     try{
@@ -55,6 +63,12 @@ async function buyerSignup(req, res){
         console.log(err);
     }
 };
+
+async function buyerLoginDisplay(req, res){
+    res.render('buyer-log-in', {
+        layout: 'main.handlebars'
+    });
+}
 
 async function buyerLogin(req, res){
     try{
@@ -165,7 +179,9 @@ async function buyerCart(req, res){
 
 module.exports = {
     buyerAuth,
+    buyerSignupDisplay,
     buyerSignup,
+    buyerLoginDisplay,
     buyerLogin,
     buyerProfile,
     buyerCart

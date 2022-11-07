@@ -5,7 +5,9 @@ const buyersRouter = express.Router();
 // const { setUser } = require('../../auth/setUser'); 
 
 const { buyerAuth,
+    buyerSignupDisplay,
     buyerSignup,
+    buyerLoginDisplay,
     buyerLogin,
     buyerProfile,
     buyerCart} = require('./buyers.controller');
@@ -13,7 +15,11 @@ const { buyerAuth,
 buyersRouter.use(express.json());
 
 buyersRouter.get('/', buyerAuth);
+
+buyersRouter.get('/new', buyerSignupDisplay);
 buyersRouter.post('/new', buyerSignup);
+
+buyersRouter.get('/login', buyerLoginDisplay);
 buyersRouter.post('/login', buyerLogin);
 
 // buyersRouter.use(setUser);
