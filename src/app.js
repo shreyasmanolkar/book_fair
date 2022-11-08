@@ -16,13 +16,7 @@ app.engine(
     exphbs.engine({
       extname: "handlebars",
       defaultLayout: false,
-      layoutsDir: "src/views/layouts/",
-    //   helpers: {
-    //     setUser: (userId)=>{
-    //         let id = userId.toString(); 
-    //         // window.localStorage.setItem('bookfair', id);
-    //     }
-    //   }
+      layoutsDir: "src/views/layouts/"
     })
 );
 

@@ -234,7 +234,7 @@ async function buyerCart(req, res){
         );
 
         if(!orderDetail.rows[0]){
-            res.render('buyerLogin', {
+            res.render('emptyCart', {
                 layout: 'main.handlebars'
             });
         } else {
