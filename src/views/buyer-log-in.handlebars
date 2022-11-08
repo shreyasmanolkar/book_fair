@@ -4,18 +4,23 @@
             <div class="auth-section">
                 <div class="auth auth-l">
                     <h1>BookFair</h1>
+                    {{#each errors}}
+                        <div class="error">
+                            <p>{{text}}</p>
+                        </div>
+                    {{/each}}
                     <div>
-                        <form>
-                            <input type="text" placeholder="Full_Name">
-                            <input type="text" placeholder="Email">
+                        <form action="/buyer/login" method="POST">
+                            <input type="text" placeholder="Full_Name" name="full_name" value={{full_name}}>
+                            <input type="text" placeholder="Email" name="email" value={{email}}>
+                            <input type="submit" value="Log In" class="btn">
                         </form>
-                        <button type="submit">Log In</button>
                     </div>
                 </div>
                 <br><br>
                 <div class="auth auth-s">
                     <p>Don't have an account?</p>
-                    <a href="#">Sign Up</a>
+                    <a href="/buyer/new">Sign Up</a>
                 </div>
             </div>
         </div>

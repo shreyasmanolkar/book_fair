@@ -47,71 +47,65 @@ async function buyerSignup(req, res){
                 layout: 'main.handlebars'
             });
         } else {
-
-        full_name = full_name.toLowerCase();
-        email = email.toLowerCase();
-        address = address.toLowerCase();
-
-        // if buyer already exist
-
-        const user = await pool.query(
-            `SELECT *
-            FROM "public"."buyers"
-            WHERE full_name = $1 
-            AND email = $2`,
-            [full_name, email]
-        );
-
-        // create new buyer
-
-        if(!user.rows.email){
-            await pool.query(
-                `INSERT INTO buyers (
-                    full_name,
-                    email,
-                    phone_number,
-                    address
-                ) VALUES (
-                    $1,
-                    $2,
-                    $3,
-                    $4
-                )`,
-                [full_name, email, phone_number, address]
+            full_name = full_name.toLowerCase();
+            email = email.toLowerCase();
+            address = address.toLowerCase();
+    
+            // if buyer already exist
+    
+            const user = await pool.query(
+                `SELECT *
+                FROM "public"."buyers"
+                WHERE full_name = $1 
+                AND email = $2`,
+                [full_name, email]
             );
     
-            let buyer = await pool.query(
-                `SELECT buyer_id 
-                FROM "public"."buyers" 
-                WHERE full_name = $1`,
-                [full_name]
-            );
+            // create new buyer
     
-            const buyerId = buyer.rows.map(buy => buy.buyer_id);
-                
-            // create cart for buyer
-
-            pool.query(
-                `INSERT INTO carts (
-                    buyer_id
-                ) VALUES (
-                    $1
-                )`,
-                [buyerId[0]]
-            );
-    
-            res.render('buyer-log-in', {
-                layout: 'main.handlebars'
-            });
+            if(!user.rows.email){
+                await pool.query(
+                    `INSERT INTO buyers (
+                        full_name,
+                        email,
+                        phone_number,
+                        address
+                    ) VALUES (
+                        $1,
+                        $2,
+                        $3,
+                        $4
+                    )`,
+                    [full_name, email, phone_number, address]
+                );
         
-        } else {
-            res.render('buyer-log-in', {
-                layout: 'main.handlebars'
-            });
-            // res.json('Buyer already exist');
-        }
+                let buyer = await pool.query(
+                    `SELECT buyer_id 
+                    FROM "public"."buyers" 
+                    WHERE full_name = $1`,
+                    [full_name]
+                );
+        
+                const buyerId = buyer.rows.map(buy => buy.buyer_id);
+                    
+                // create cart for buyer
+    
+                pool.query(
+                    `INSERT INTO carts (
+                        buyer_id
+                    ) VALUES (
+                        $1
+                    )`,
+                    [buyerId[0]]
+                );
 
-        }   
+                res.redirect('/buyer/login');
+            
+            } else {
+
+                res.redirect('/buyer/login');
+            }
+        }  
     } catch(err){
         console.log(err);
     }
@@ -125,27 +119,60 @@ async function buyerLoginDisplay(req, res){
 
 async function buyerLogin(req, res){
     try{
-        const full_name = req.body.full_name.toLowerCase();
-        const email = req.body.email.toLowerCase();
+        let { full_name, email } = req.body;
+        let errors = [];
 
-        const user = await pool.query(
-            `SELECT *
-            FROM "public"."buyers"
-            WHERE full_name = $1 
-            AND email = $2`,
-            [full_name, email]
-        );
-
-        if(user){
-            const user_id = user.rows;
-            req.user = user_id;
-            res.json(req.user);
-
-            console.log(req.user)
-
-        } else {
-            res.json({"status": "invalid username or email"});
+        // validate fields
+        if(!full_name){
+            errors.push({ text: 'Please add full name' });
         }
+
+        if(!email){
+            errors.push({ text: 'Please add email' });
+        }
+
+        if(errors.length > 0){
+            res.render('buyer-log-in', {
+                errors,
+                full_name,
+                email,
+                layout: 'main.handlebars'
+            });
+        } else {
+
+            // full_name = full_name.toLowerCase();
+            // email = email.toLowerCase();
+
+            console.log(full_name);
+            console.log(email);
+
+            const user = await pool.query(
+                `SELECT *
+                FROM "public"."buyers"
+                WHERE full_name = $1 
+                AND email = $2`,
+                [full_name, email]
+            );
+    
+            if(!user.rows){
+
+                errors.push({text: 'Invalid User Name Or Email'});
+
+                res.render('buyer-log-in', {
+                    errors,
+                    full_name,
+                    email,
+                    layout: 'main.handlebars'
+                });
+
+            } else {
+                const user_id = user.rows.map(buy => buy.buyer_id);
+                req.user = user_id[0];
+    
+                res.redirect(`/buyer/${req.user}`)
+            }
+        }
+
     } catch(err){
         console.log(err);
     }
