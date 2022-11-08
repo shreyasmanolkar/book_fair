@@ -1,24 +1,22 @@
 const pool = require('../models/database');
+const authId = require('./authId');
 
 function authUser(req, res, next){
     let reqUser = req.user;
+    let errors = [];
 
     if(reqUser == null || undefined){
         res.status(403);
-        return res.send('you need to sign in');
+        // return res.send('you need to sign in');
+
+        errors.push({text: 'You Need To Sign in'});
+
+        return res.render('buyer-log-in', {
+            errors,
+            layout: 'main.handlebars'
+        });
     }
     next();
-};
-
-function authRole(role){
-    return (req, res, next)=>{
-        if(req.user[0].seller_id !== role){
-            res.status(401);
-            return res.send('Not Allowed!');
-        }
-
-        next();
-    }
 };
 
 async function authSeller(req, res, next){    
@@ -38,26 +36,47 @@ async function authSeller(req, res, next){
     next();
 };
 
+// async function authBuyer(req, res, next){    
+//     const paramsBuyerId = Number(req.params.buyerId);
+
+//     const authId = await pool.query(
+//         `SELECT buyer_id
+//         FROM "public"."buyers"
+//         WHERE full_name = $1`,
+//         [full_name]
+//     );
+
+//     const validId = authId.rows.map(auth => auth.buyer_id);
+    
+//     if(validId[0] !== paramsBuyerId){
+//         res.status(401);
+//         return res.send('Not Allowed!');
+//     }   
+    
+//     next();
+// };
+
+
 async function authBuyer(req, res, next){    
+    const errors = [];
     const paramsBuyerId = Number(req.params.buyerId);
-    const full_name = req.body.full_name;
-    const authId = await pool.query(
-        `SELECT buyer_id
-        FROM "public"."buyers"
-        WHERE full_name = $1`,
-        [full_name]
-    );
-    const validId = authId.rows.map(auth => auth.buyer_id);
-    if(validId[0] !== paramsBuyerId){
+    
+    if(authId[authId.length - 1] !== paramsBuyerId){
         res.status(401);
-        return res.send('Not Allowed!');
-    }   
+
+        errors.push({text: 'Access Not Allowed !'});
+    
+        return res.render('buyer-log-in', {
+            errors,
+            layout: 'main.handlebars'
+        });
+    };
+    
     next();
 };
 
 module.exports = {
     authUser,
-    authRole,
     authSeller,
     authBuyer
 };

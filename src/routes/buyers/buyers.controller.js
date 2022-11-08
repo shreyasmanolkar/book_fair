@@ -1,4 +1,5 @@
 const pool = require('../../models/database');
+const authId = require('../../auth/authId');
 
 function buyerAuth(req, res){
     res.render('buyer-sign-log', {
@@ -140,12 +141,6 @@ async function buyerLogin(req, res){
             });
         } else {
 
-            // full_name = full_name.toLowerCase();
-            // email = email.toLowerCase();
-
-            console.log(full_name);
-            console.log(email);
-
             const user = await pool.query(
                 `SELECT *
                 FROM "public"."buyers"
@@ -168,8 +163,10 @@ async function buyerLogin(req, res){
             } else {
                 const user_id = user.rows.map(buy => buy.buyer_id);
                 req.user = user_id[0];
-    
-                res.redirect(`/buyer/${req.user}`)
+
+                authId.push(user_id[0]);
+
+                res.redirect(`/buyer/${req.user}`);
             }
         }
 
