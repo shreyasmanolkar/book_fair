@@ -13,9 +13,46 @@ async function buyerSignupDisplay(req, res){
 }
 
 async function buyerSignup(req, res){
+    
     try{
-        const full_name = req.body.full_name.toLowerCase();
-        const email = req.body.email.toLowerCase();
+        let { full_name, email, address, phone_number } = req.body;     
+        let errors = [];
+
+        // validate fields
+        if(!full_name){
+            errors.push({ text: 'Please add your full name ' })
+        }
+
+        if(!email){
+            errors.push({ text: 'Please add your email' })
+        }
+        
+        if(!address){
+            errors.push({ text: 'Please add your address' })
+        }
+
+        if(!phone_number){
+            errors.push({ text: 'Please add your phone number ' })
+        }
+
+        // check for errors
+        
+        if(errors.length > 0){
+            res.render('buyer-sign-up', {
+                errors,
+                full_name, 
+                email, 
+                address, 
+                phone_number,
+                layout: 'main.handlebars'
+            });
+        } else {
+
+        full_name = full_name.toLowerCase();
+        email = email.toLowerCase();
+        address = address.toLowerCase();
+
+        // if buyer already exist
 
         const user = await pool.query(
             `SELECT *
@@ -25,16 +62,22 @@ async function buyerSignup(req, res){
             [full_name, email]
         );
 
+        // create new buyer
+
         if(!user.rows.email){
             await pool.query(
                 `INSERT INTO buyers (
                     full_name,
-                    email
+                    email,
+                    phone_number,
+                    address
                 ) VALUES (
                     $1,
-                    $2
+                    $2,
+                    $3,
+                    $4
                 )`,
-                [full_name, email]
+                [full_name, email, phone_number, address]
             );
     
             let buyer = await pool.query(
@@ -45,7 +88,9 @@ async function buyerSignup(req, res){
             );
     
             const buyerId = buyer.rows.map(buy => buy.buyer_id);
-    
+                
+            // create cart for buyer
+
             pool.query(
                 `INSERT INTO carts (
                     buyer_id
@@ -55,10 +100,18 @@ async function buyerSignup(req, res){
                 [buyerId[0]]
             );
     
-            res.json("Buyer Signed up");
+            res.render('buyer-log-in', {
+                layout: 'main.handlebars'
+            });
+        
         } else {
-            res.json('Buyer already exist');
+            res.render('buyer-log-in', {
+                layout: 'main.handlebars'
+            });
+            // res.json('Buyer already exist');
         }
+
+        }   
     } catch(err){
         console.log(err);
     }

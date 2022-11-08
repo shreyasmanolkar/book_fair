@@ -3,6 +3,7 @@ const app = express();
 const pool = require('./models/database');
 const exphbs = require('express-handlebars');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
@@ -21,6 +22,10 @@ app.engine(
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
+
+// body parser
+app.use(express.urlencoded({ extended: false }));
+
 
 // set static folder
 

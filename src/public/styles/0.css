@@ -344,6 +344,10 @@ header i{
     align-self: center;
 }
 
+.btn:hover{
+    cursor: pointer;
+}
+
 .display-mid h1{
     padding: 50px 150px 0 150px;
 }
@@ -778,4 +782,17 @@ header i{
 
 .new-book-display form textarea{
     padding: 8px 6px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.error {
+    padding: 5px;   
+    margin-bottom: 15px;
+    width: 100%;
+    height: 30px;
+    color: red;
+    border: 1px solid red;
 }
