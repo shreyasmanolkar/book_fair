@@ -11,7 +11,7 @@
             </div>
             <div class="seller-detail">
                 <h2>{{name}}</h2>
-                <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
+                <h5>Seller: <a href="/sellers/{{seller_id}}">{{seller_name}}</a></h5><br>
                 <p>{{substring}}</p><br>
                 <h2>₹  {{price}}</h2>
             </div>
@@ -22,8 +22,13 @@
         
         {{/each}}
 
-        <a href="#" class="btn">Add New Book</a><br>
-        <a href="#" class="btn">View Orders</a><br>
-        <a href="#" class="btn">Visit Shop</a>
+        {{#each data.sellerIdInfo}}
+
+        <a href="/seller/{{seller_id}}/books/new" class="btn">Add New Book</a><br>
+        <a href="/seller/{{seller_id}}/orders" class="btn">View Orders</a><br>
+        <a href="/sellers/{{seller_id}}/books" class="btn">Visit Shop</a><br>
+        <a href="/seller/{{seller_id}}/" class="btn">Dashboard</a>
         <br><br><br>
+
+        {{/each}}
     </div>

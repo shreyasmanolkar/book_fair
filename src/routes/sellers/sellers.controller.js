@@ -145,8 +145,15 @@ async function sellersBooks(req, res){
     try {
         const sellerId = Number(req.params.sellerId);
 
+        const sellerIdInfo = await pool.query(
+            `SELECT seller_id
+            FROM "public"."sellers"
+            WHERE seller_id = $1`,
+            [sellerId]
+        );
+
         const sellerBooks = await pool.query(
-            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name"
+            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id
@@ -160,6 +167,7 @@ async function sellersBooks(req, res){
             });
         } else {
             let data = {
+                sellerIdInfo: sellerIdInfo.rows,
                 sellerBooks: sellerBooks.rows
             }
 
@@ -167,6 +175,8 @@ async function sellersBooks(req, res){
                 data,
                 layout: 'dashboard.handlebars'
             });
+
+            // res.json(data);
         }
     } catch (error) {
         console.log(error)
@@ -218,6 +228,13 @@ async function sellersOrders(req, res){
     try {
         const sellerId = Number(req.params.sellerId);
 
+        const sellerIdInfo = await pool.query(
+            `SELECT seller_id
+            FROM "public"."sellers"
+            WHERE seller_id = $1`,
+            [sellerId]
+        );
+
         const shopDetail = await pool.query(
             `SELECT * 
             FROM "public"."shops"
@@ -256,6 +273,7 @@ async function sellersOrders(req, res){
             } else {
     
                 let data = {
+                    sellerIdInfo: sellerIdInfo.rows,
                     sellersOrders: sellersOrders.rows
                 };
     
