@@ -3,6 +3,11 @@
 
         <h1 style="color: red; text-align: center; padding: 50px 20px;">Customers Have Not placed Orders Yet!</h1>
 
-        <a href="#" class="btn mr-b">View Books</a>
-        <a href="#" class="btn mr-b">Visit Shop</a>
+        {{#each sellerIdInfo}}
+
+        <a href="/seller/{{seller_id}}/books" class="btn mr-b">View Books</a>
+        <a href="/seller/{{seller_id}}/" class="btn">Dashboard</a>
+        <br><br><br>
+    
+        {{/each}}
     </div>
