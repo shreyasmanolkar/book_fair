@@ -26,11 +26,9 @@ async function viewSellerProfile(req, res){
         const sellerId = Number(req.params.sellerId);
 
         const sellerDetails = await pool.query(
-            `SELECT s.seller_id, s.full_name AS "full_name", s.email, sh.shop_name, s.phone_number
-            FROM "public"."sellers" AS "s"
-            JOIN "public"."shops" AS  "sh" 
-            ON sh.seller_id = s.seller_id
-            WHERE s.seller_id = $1`,
+            `SELECT * 
+            FROM "public"."sellers" 
+            WHERE seller_id = $1`,
             [sellerId]
         );
 

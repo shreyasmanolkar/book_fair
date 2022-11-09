@@ -5,18 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/8a8266485c.js" crossorigin="anonymous"></script>
-    <title>BookFair</title>
     <link rel="stylesheet" href="/styles/0.css">
     <link rel="stylesheet" href="/styles/1.css">
     <link rel="stylesheet" href="/styles/2.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <title>{{ title }}</title>
 </head>
 <body>
     <header>
         <h1><a href="/">BookFair</a></h1>
         <input type="text" name="search" id="search" placeholder="Search Books" >
         <div>
-            <a href="/buyer/1/cart"><i class="fas fa-shopping-cart"></i></a>
-            <a href="/buyer/1"><i class="fas fa-user-alt"></i></a>
+            <a href="/buyer/{{ id }}/cart"><i class="fas fa-shopping-cart"></i></a>
+            <a href="/buyer/{{ id }}"><i class="fas fa-user-alt"></i></a>
         </div>
     </header>
 

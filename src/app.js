@@ -8,6 +8,7 @@ const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
 const viewSellersRouter = require('./routes/viewSellers/viewSellers.router');
 const booksRouter = require('./routes/books/books.router');
+const authId = require('./auth/authId');
 
 // handlebars
 app.engine(
@@ -32,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {    
     try{
+
+        let id = authId[authId.length - 1];
 
         const trending = await pool.query(
             `SELECT b.name, b.image_url, b.price , s.full_name, b.book_id, s.seller_id
@@ -80,6 +83,8 @@ app.get('/', async (req, res) => {
         
         res.render('home', {
             data,
+            title: 'Home Page',
+            id,
             layout: 'main.handlebars'
         });
 
