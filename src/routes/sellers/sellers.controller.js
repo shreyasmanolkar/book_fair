@@ -153,35 +153,6 @@ async function sellerLogin(req, res){
 
 };
 
-async function addNewShop(req, res){
-
-    // incomplete 
-   
-    res.render('addNewShop', {
-        layout: 'dashboard.handlebars'
-    });
-}
-
-async function addNewShopPost(req, res){
-
-    try{
-
-        const shop_name = req.body.shop_name.toLowerCase();
-
-
-        await pool.query(
-
-        )
-
-        // res.render('addNewShop', {
-        //     layout: 'dashboard.handlebars'
-        // });
-
-    } catch(err){
-        console.log(err);
-    }
-}
-
 async function sellerProfile(req, res){
     try {
         const sellerId = Number(req.params.sellerId);
@@ -194,9 +165,7 @@ async function sellerProfile(req, res){
         );
     
         if(!sellerDetails.rows[0]){
-            // invalid login 
-            // create Shop  
-            res.json('unable to find shop of seller');
+            res.redirect('/seller/login');
         } else {
             let data = {
                 sellerDetails: sellerDetails.rows
@@ -234,6 +203,7 @@ async function sellersBooks(req, res){
             
         if(!sellerBooks.rows[0]){
             res.render('dashboardBooksNotFound', {
+                sellerIdInfo: sellerIdInfo.rows,
                 layout: 'dashboard.handlebars'
             });
         } else {
@@ -246,9 +216,8 @@ async function sellersBooks(req, res){
                 data,
                 layout: 'dashboard.handlebars'
             });
-
-            // res.json(data);
         }
+
     } catch (error) {
         console.log(error)
     }
@@ -367,8 +336,6 @@ module.exports = {
     sellerSignup,
     sellerLogin,
     sellerLoginDisplay,
-    addNewShop,
-    addNewShopPost,
     sellerProfile,
     sellersBooks,
     addNewBook,

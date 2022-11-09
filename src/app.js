@@ -3,7 +3,6 @@ const app = express();
 const pool = require('./models/database');
 const exphbs = require('express-handlebars');
 const path = require('path');
-// const bodyParser = require('body-parser');
 
 const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');
@@ -33,10 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {    
     try{
-        const shops = await pool.query(
-            `SELECT seller_id, shop_name 
-            FROM "public"."shops"`
-        );
 
         const trending = await pool.query(
             `SELECT b.name, b.image_url, b.price , s.full_name, b.book_id, s.seller_id
@@ -77,7 +72,6 @@ app.get('/', async (req, res) => {
         );
 
         let data = {
-            shops: shops.rows,
             trending: trending.rows,
             topSelling: topSelling.rows,
             bestINStock: bestINStock.rows,
