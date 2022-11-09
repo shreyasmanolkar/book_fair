@@ -244,7 +244,7 @@ async function sellersBook(req, res){
 
         res.render('sellerBookDetail', {
             data,
-            layout: 'main.handlebars'
+            layout: 'dashboard.handlebars'
         });
         
     } catch(err){
@@ -253,40 +253,114 @@ async function sellersBook(req, res){
 };
 
 async function addNewBookDisplay(req, res){
+    const sellerId = Number(req.params.sellerId);
+
     res.render('addNewBookDisplay', {
+        sellerId,
         layout: 'dashboard.handlebars'
     });
 }
 
 async function addNewBook(req, res){
+
     try {
-        const name = req.body.name.toLowerCase();
-        const stock = req.body.stock;
-        const image_url = req.body.image_url;
-        const seller_id = req.body.seller_id;
-        const price = req.body.price;
-        const description = req.body.description;
-    
-        await pool.query(
-            `INSERT INTO books (
-                "name",
+        let { name, stock, img_url, price, description, seller_id } = req.body;
+        let errors = [];
+
+        // validate fields
+        if(!name){
+            errors.push({ text: 'Please add name of the book' })
+        }
+
+        if(!stock){
+            errors.push({ text: 'Please add stock of the book' })
+        }
+        
+        if(!img_url){
+            errors.push({ text: 'Please add image url of the book' })
+        }
+        
+        if(!price){
+            errors.push({ text: 'Please add price of the book' })
+        }
+        
+        if(!description){
+            errors.push({ text: 'Please add detail description of the book' })
+        }
+
+        if(!seller_id){
+            errors.push({ text: 'Please add seller Id' })
+        }
+
+        // check for errors
+
+        if(errors.length > 0){        
+            console.log(errors);
+            res.render('addNewBookDisplay', {
+                errors,
+                name,
                 stock,
-                image_url,
-                seller_id,
+                img_url,
                 price,
-                "description"
-            ) VALUES (
-                $1,
-                $2,
-                $3,
-                $4,
-                $5,
-                $6
-            )`,
-            [name, stock, image_url, seller_id, price, description]
-        )
-    
-        res.json(`Book Added`);
+                seller_id,
+                description,
+                layout: 'dashboard.handlebars'
+            });
+        } else {
+            name = name.toLowerCase();
+
+            // if book already exist 
+
+            const book = await pool.query(
+                `SELECT * 
+                FROM "public"."books"
+                WHERE "name" ILIKE $1
+                AND seller_id = $2`,
+                [name, seller_id]
+            );
+
+            // create new book
+
+            if(!book.rows.description){
+
+                await pool.query(
+                    `INSERT INTO books (
+                        "name",
+                        stock,
+                        image_url,
+                        seller_id,
+                        price,
+                        "description"
+                    ) VALUES (
+                        $1,
+                        $2,
+                        $3,
+                        $4,
+                        $5,
+                        $6
+                    )`,
+                    [name, stock, img_url, seller_id, price, description]
+                );
+
+                res.redirect('/books/')
+
+            } else {
+                errors.push({text: `Try again later!!`})
+
+                console.log(errors);
+
+                res.render('addNewBookDisplay', {
+                    errors,
+                    name,
+                    stock,
+                    img_url,
+                    price,
+                    seller_id,
+                    description,
+                    layout: 'dashboard.handlebars'
+                });
+            }
+        }
 
     } catch (error) {
         console.log(error)

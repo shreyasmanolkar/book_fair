@@ -34,9 +34,12 @@ sellersRouter.use(authUserDashboard);
 sellersRouter.get('/:sellerId', authSeller, sellerProfile);
 
 sellersRouter.get('/:sellerId/books', authSeller, sellersBooks);
-sellersRouter.get('/:sellerId/books/:bookId', authSeller, sellersBook);
+
 sellersRouter.get('/:sellerId/books/new', authSeller, addNewBookDisplay);
-sellersRouter.post('/:sellerId/books/new', authSeller, addNewBook);
+sellersRouter.post('/books/new', addNewBook);
+
+
+sellersRouter.get('/:sellerId/books/:bookId', authSeller, sellersBook);
 
 sellersRouter.get('/:sellerId/orders', authSeller, sellersOrders);
 

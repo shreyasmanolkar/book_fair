@@ -1,20 +1,31 @@
     <h1 class="new-book-title">Add New Book</h1>
     <div class="new-book-display">
-        <form>
+        
+        {{#each errors}}
+            <div class="error">
+                <p>{{text}}</p>
+            </div>
+        {{/each}}
+
+        <form action="/seller/books/new" method="POST">
             <label for="name">Book Name:</label><br>
-            <input type="text" id="name"><br>
+            <input type="text" name="name" id="name" value={{name}}><br>
 
             <label for="stock">Stock:</label><br>
-            <input type="number" id="stock"><br>
+            <input type="number" id="stock" name="stock" value={{stock}}><br>
             
             <label for="img-url">Image url:</label><br>
-            <input type="text" id="img-url"><br>
+            <input type="text" id="img-url" name="img_url" value={{img_url}}><br>
             
             <label for="price">Price:</label><br>
-            <input type="number" id="price"><br>
-            
+            <input type="number" id="price" name="price" value={{price}}><br>
+
+            <label for="seller_id">Seller Id</label>
+            <input type="number" name="seller_id" id="seller_id" placeholder=" please enter {{sellerId}} as seller Id" value={{seller_id}}>
+
             <label for="description">Description:</label><br>
-            <textarea name="description" id="description" cols="30" rows="10"></textarea><br>
+            <textarea name="description" id="description" name="description" cols="30" rows="10">{{description}}</textarea><br><br>
+
+            <input type="submit" value="Add Book" class="btn">
         </form><br>
-        <button type="submit" class="btn">Add Book</button>
     </div>
