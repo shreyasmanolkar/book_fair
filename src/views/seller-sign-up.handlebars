@@ -5,18 +5,24 @@
                 <div class="auth auth-l">
                     <h1>BookFair</h1>
                     <h3>Dashboard</h3>
+                    {{#each errors}}
+                        <div class="error">
+                            <p>{{text}}</p>
+                        </div>
+                    {{/each}}
                     <div>
-                        <form>
-                            <input type="text" placeholder="Full_Name">
-                            <input type="text" placeholder="Email">
+                        <form action="/seller/new" method="POST">
+                            <input type="text" placeholder="Full_Name" name="full_name" value={{full_name}}>
+                            <input type="text" placeholder="Email" name="email" value={{email}}>
+                            <input type="number" placeholder="Phone_Number" name="phone_number" value={{phone_number}}>
+                            <input type="submit" value="Sign Up" class="btn">
                         </form>
-                        <button type="submit">Sign Up</button>
                     </div>
                 </div>
                 <br><br>
                 <div class="auth auth-s">
                     <p>Have an account?</p>
-                    <a href="#">Log IN</a>
+                    <a href="/seller/login">Log IN</a>
                 </div>
             </div>
         </div>

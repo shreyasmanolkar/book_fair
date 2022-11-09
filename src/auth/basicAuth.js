@@ -7,7 +7,6 @@ function authUser(req, res, next){
 
     if(reqUser == null || undefined){
         res.status(403);
-        // return res.send('you need to sign in');
 
         errors.push({text: 'You Need To Sign in'});
 
@@ -19,22 +18,57 @@ function authUser(req, res, next){
     next();
 };
 
-async function authSeller(req, res, next){    
-    const paramsSellerId = Number(req.params.sellerId);
-    const full_name = req.body.full_name;
-    const authId = await pool.query(
-        `SELECT seller_id
-        FROM "public"."sellers"
-        WHERE full_name = $1`,
-        [full_name]
-    );
-    const validId = authId.rows.map(auth => auth.seller_id);
-    if(validId[0] !== paramsSellerId){
-        res.status(401);
-        return res.send('Not Allowed!');
-    }   
+function authUserDashboard(req, res, next){
+    let reqUser = req.user;
+    let errors = [];
+
+    if(reqUser == null || undefined){
+        res.status(403);
+
+        errors.push({text: 'You Need To Sign in'});
+
+        return res.render('seller-log-in', {
+            errors,
+            layout: 'dashboard.handlebars'
+        });
+    }
     next();
 };
+
+async function authSeller(req, res, next){    
+    const errors = [];
+    const paramsSellerId = Number(req.params.sellerId);
+
+    if(authId[authId.length - 1] !== paramsSellerId){
+        res.status(401);
+
+        errors.push({ text: 'Access Not Allowed !' });
+
+        return res.render('seller-log-in', {
+            errors,
+            layout: 'dashboard.handlebars'
+        });
+    };
+    next();
+};
+
+
+// async function authSeller(req, res, next){    
+//     const paramsSellerId = Number(req.params.sellerId);
+//     const full_name = req.body.full_name;
+//     const authId = await pool.query(
+//         `SELECT seller_id
+//         FROM "public"."sellers"
+//         WHERE full_name = $1`,
+//         [full_name]
+//     );
+//     const validId = authId.rows.map(auth => auth.seller_id);
+//     if(validId[0] !== paramsSellerId){
+//         res.status(401);
+//         return res.send('Not Allowed!');
+//     }   
+//     next();
+// };
 
 // async function authBuyer(req, res, next){    
 //     const paramsBuyerId = Number(req.params.buyerId);
@@ -77,6 +111,7 @@ async function authBuyer(req, res, next){
 
 module.exports = {
     authUser,
+    authUserDashboard,
     authSeller,
     authBuyer
 };

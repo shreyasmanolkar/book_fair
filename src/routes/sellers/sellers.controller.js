@@ -1,4 +1,5 @@
 const pool = require('../../models/database');
+const authId = require('../../auth/authId');
 
 function sellerAuth(req, res){
     res.render('seller-sign-log',{
@@ -14,31 +15,70 @@ async function sellerSignupDisplay(req, res){
 
 async function sellerSignup(req, res){
     try{
-        const full_name = req.body.full_name.toLowerCase();
-        const email = req.body.email.toLowerCase();
+        let { full_name, email, phone_number } = req.body;
+        let errors = [];
 
-        const user = await pool.query(
-            `SELECT *
-            FROM "public"."sellers"
-            WHERE full_name = $1 
-            AND email = $2`,
-            [full_name, email]
-        );
+        // validate fields
+        if(!full_name){
+            errors.push({ text: 'Please add your full name' });
+        }
 
-        if(!user.rows.email){
-            await pool.query(
-                `INSERT INTO sellers (
-                    full_name,
-                    email
-                ) VALUES (
-                    $1,
-                    $2
-                )`,
+        if(!email){
+            errors.push({ text: 'Please add your email' });
+        }
+
+        if(!phone_number){
+            errors.push({ text: 'Please add your phone number' });
+        }
+
+        // check for errors
+
+        if(errors.length > 0){
+            res.render('seller-sign-up', {
+                errors,
+                full_name,
+                email,
+                phone_number,
+                layout: 'dashboard.handlebars'
+            });
+        } else {
+            full_name = full_name.toLowerCase();
+            email = email.toLowerCase();
+
+            // if seller already exist
+
+            const user = await pool.query(
+                `SELECT *
+                FROM "public"."sellers"
+                WHERE full_name = $1 
+                AND email = $2`,
                 [full_name, email]
             );
-            res.json("Seller Signed up");
-        } else {
-            res.json('Seller already exist');
+
+            // create new buyer
+
+            if(!user.rows.email){
+                await pool.query(
+                    `INSERT INTO sellers (
+                        full_name,
+                        email,
+                        phone_number
+                    ) VALUES (
+                        $1,
+                        $2,
+                        $3
+                    )`,
+                    [full_name, email, phone_number]
+                );
+
+                res.redirect('/seller/login');
+            
+            } else {
+            
+                res.redirect('/seller/login');
+            
+            }
+
         }
 
     } catch(err){
@@ -52,29 +92,60 @@ async function sellerLoginDisplay(req, res){
     });
 }
 
-
 async function sellerLogin(req, res){
     try{
-        const full_name = req.body.full_name.toLowerCase();
-        const email = req.body.email.toLowerCase();
+        let { full_name, email } = req.body;
+        let errors = [];
 
-        const user = await pool.query(
-            `SELECT *
-            FROM "public"."sellers"
-            WHERE full_name = $1 
-            AND email = $2`,
-            [full_name, email]
-        );
+        // validate fields
 
-        if(user){
-            const user_id = user.rows;
-            req.user = user_id;
-            res.json(req.user);
+        if(!full_name){
+            errors.push({ text: 'Please add full name' });
+        }
 
-            console.log(req.user)
+        if(!email){
+            errors.push({ text: 'Please add email' });
+        }
 
+        // check for errors
+
+        if(errors.length > 0){
+            res.render('seller-log-in', {
+                errors,
+                full_name,
+                email,
+                layout: 'dashboard.handlebars'
+            });
         } else {
-            res.json({"status": "invalid username or email"});
+
+            const user = await pool.query(
+                `SELECT *
+                FROM "public"."sellers"
+                WHERE full_name = $1 
+                AND email = $2`,
+                [full_name, email]
+            );
+    
+            if(!user.rows){
+
+                errors.push({ text: 'Invalid User Name or Email' });
+
+                res.render('seller-log-in',{
+                    errors,
+                    full_name,
+                    email,
+                    layout: 'dashboard.handlebars'
+                });
+    
+            } else {
+
+                const user_id = user.rows.map(sell => sell.seller_id);
+                req.user = user_id[0];
+
+                authId.push(user_id[0]);
+
+                res.redirect(`/seller/${req.user}`);
+            }
         }
     } catch(err){
         console.log(err);

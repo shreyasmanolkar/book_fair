@@ -3,7 +3,7 @@ const app = express();
 const pool = require('./models/database');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const sellerRouter = require('./routes/sellers/sellers.router');
 const buyerRouter = require('./routes/buyers/buyers.router');

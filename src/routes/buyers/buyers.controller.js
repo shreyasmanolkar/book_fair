@@ -132,6 +132,8 @@ async function buyerLogin(req, res){
             errors.push({ text: 'Please add email' });
         }
 
+        // check for errors
+
         if(errors.length > 0){
             res.render('buyer-log-in', {
                 errors,
@@ -151,7 +153,7 @@ async function buyerLogin(req, res){
     
             if(!user.rows){
 
-                errors.push({text: 'Invalid User Name Or Email'});
+                errors.push({text: 'Invalid User Name or Email'});
 
                 res.render('buyer-log-in', {
                     errors,
