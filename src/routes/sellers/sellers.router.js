@@ -15,6 +15,7 @@ const {
     sellersBook,
     addNewBook,
     addNewBookDisplay,
+    sellerDelete,
     sellersOrders } = require('./sellers.controller');
    
 sellersRouter.use(express.json());
@@ -42,5 +43,7 @@ sellersRouter.post('/books/new', addNewBook);
 sellersRouter.get('/:sellerId/books/:bookId', authSeller, sellersBook);
 
 sellersRouter.get('/:sellerId/orders', authSeller, sellersOrders);
+
+sellersRouter.post('/seller/delete', sellerDelete);
 
 module.exports = sellersRouter;

@@ -7,6 +7,7 @@ function buyerAuth(req, res){
 
     res.render('buyer-sign-log', {
         authId: id,
+        title: 'Buyer Authentication',
         layout: 'main.handlebars'
     });
 };
@@ -17,6 +18,7 @@ async function buyerSignupDisplay(req, res){
 
     res.render('buyer-sign-up', {
         authId: id,
+        title: 'Sign Up',
         layout: 'main.handlebars'
     });
 }
@@ -55,6 +57,7 @@ async function buyerSignup(req, res){
                 address, 
                 phone_number,
                 authId: id,
+                title: 'Sign Up',
                 layout: 'main.handlebars'
             });
         } else {
@@ -126,6 +129,7 @@ async function buyerLoginDisplay(req, res){
     let id = authId[authId.length - 1];
     res.render('buyer-log-in', {
         authId: id,
+        title: 'Buyer Log in',
         layout: 'main.handlebars'
     });
 }
@@ -153,6 +157,7 @@ async function buyerLogin(req, res){
                 full_name,
                 email,
                 authId: id,
+                title: 'Buyer Log In',
                 layout: 'main.handlebars'
             });
         } else {
@@ -174,6 +179,7 @@ async function buyerLogin(req, res){
                     full_name,
                     email,
                     authId: id,
+                    title: 'Buyer Log In',
                     layout: 'main.handlebars'
                 });
 
@@ -209,6 +215,7 @@ async function buyerProfile(req, res){
         if(!buyerDetails.rows[0]){
             res.render('buyerProfileNotFound',{
                 authId: id,
+                title: 'Profile Not Found',
                 layout: 'main.handlebars'
             });
         } else {
@@ -220,6 +227,7 @@ async function buyerProfile(req, res){
             res.render('buyerProfile', {
                 data,
                 authId: id,
+                title: 'Buyer Profile',
                 layout: 'main.handlebars'
             });
         }
@@ -242,6 +250,7 @@ async function buyerCart(req, res){
             b.name AS "book_name", 
             b.image_url,
             b.price,
+            b.book_id,
             s.full_name AS "seller_name"
             FROM "public"."orders" AS "o" 
             JOIN "public"."books" AS "b" 
@@ -257,6 +266,7 @@ async function buyerCart(req, res){
         if(!orderDetail.rows[0]){
             res.render('emptyCart', {
                 authId: id,
+                title: 'Cart',
                 layout: 'main.handlebars'
             });
         } else {
@@ -268,6 +278,7 @@ async function buyerCart(req, res){
             res.render('buyerCart', {
                 data,
                 authId: id,
+                title: 'Cart',
                 layout: 'main.handlebars'
             });
         }
@@ -277,6 +288,30 @@ async function buyerCart(req, res){
     }
 };
 
+async function deleteCartBook(req, res){
+    const buyerId = authId[authId.length - 1];
+    let { bookId } = req.body;
+
+    let cart = await pool.query(
+        `SELECT cart_id
+        FROM "public"."carts"
+        WHERE buyer_id = $1`,
+        [buyerId]
+    );
+
+    let cartId = cart.rows[0].cart_id;
+
+    await pool.query(
+        `DELETE FROM "public"."orders"
+        WHERE book_id = $1
+        AND cart_id = $2`,
+        [bookId, cartId]
+    );
+
+    res.redirect(`/buyer/${buyerId}/cart`);
+    
+};
+
 module.exports = {
     buyerAuth,
     buyerSignupDisplay,
@@ -284,5 +319,6 @@ module.exports = {
     buyerLoginDisplay,
     buyerLogin,
     buyerProfile,
-    buyerCart
+    buyerCart,
+    deleteCartBook
 };

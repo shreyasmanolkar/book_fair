@@ -23,12 +23,13 @@
                 <h2>{{book_name}}</h2>
                 <h5>Seller: <a href="#">{{seller_name}}</a></h5><br>
                 <h2>₹  {{price}}</h2><br>
-                <div class="quantity">
-                    <button class="c-btn">-</button>
-                    <span class="qty">{{quantity}}</span>
-                    <button class="c-btn">+</button>
-                    <button class="c-btn"><i class="fas fa-trash"></i></button>
-                </div>
+                <span class="qty">{{quantity}}</span><br><br>
+                <h1> Book Id: {{book_id}}</h1><br>
+
+                <form action="" class="check">
+                    <input style="width: 300px;" type="number" name="bookId" id="book_id" placeholder="Enter book id listed above To Delete Order" value={{bookId}}><br><br>
+                    <input type="submit" value="Delete Order" class="btn" style="width: 300px;">
+                </form>
             </div>
         </div>
 

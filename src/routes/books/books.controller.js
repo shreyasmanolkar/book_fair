@@ -20,6 +20,7 @@ async function allBooks(req, res){
         res.render('allBooks', {
             data,
             authId: id,
+            title: 'All Books',
             layout: "main.handlebars"
         })
 
@@ -51,6 +52,7 @@ async function bookDetail(req, res){
         res.render('bookDetail', {
             data,
             authId: id,
+            title: 'Book Detail',
             layout: 'main.handlebars'
         });
         
@@ -142,6 +144,7 @@ async function addToCart(req, res){
                 res.render('bookDetail', {
                     data,
                     errors,
+                    title: 'Book Detail',
                     layout: 'main.handlebars'
                 });
             }

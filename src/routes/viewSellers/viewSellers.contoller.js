@@ -18,6 +18,7 @@ async function allSellers(req, res){
         res.render('allSellers', {
             data,
             authId: id,
+            title: 'All Sellers',
             layout: 'main.handlebars'
         });
 
@@ -41,6 +42,7 @@ async function viewSellerProfile(req, res){
         if(!sellerDetails.rows[0]){
             res.render('sellerNotFound',{
                 authId: id,
+                title: 'Seller Not Found',
                 layout: 'main.handlebars'
             });
         } else {
@@ -52,6 +54,7 @@ async function viewSellerProfile(req, res){
             res.render('viewSellerProfile', {
                 data,
                 authId: id,
+                title: 'Seller Profile',
                 layout: 'main.handlebars'
             });
         }
@@ -84,6 +87,7 @@ async function viewSellerBooks(req, res){
         if(!sellerBooks.rows[0]){
             res.render('viewSellerBooksNotFound', {
                 authId: id,
+                title: 'Seller Books Not Found',
                 layout: 'main.handlebars'
             });
         } else {
@@ -96,6 +100,7 @@ async function viewSellerBooks(req, res){
             res.render('viewSellerBooks', {
                 data,
                 authId: id,
+                title: 'Seller Books',
                 layout: 'main.handlebars'
             });
         }

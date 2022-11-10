@@ -10,6 +10,7 @@ const { buyerAuth,
     buyerLoginDisplay,
     buyerLogin,
     buyerProfile,
+    deleteCartBook,
     buyerCart} = require('./buyers.controller');
 
 buyersRouter.use(express.json());
@@ -27,5 +28,7 @@ buyersRouter.use(authUser);
 
 buyersRouter.get('/:buyerId', authBuyer, buyerProfile);
 buyersRouter.get('/:buyerId/cart', authBuyer, buyerCart);
+
+buyersRouter.post('/bookDelete', deleteCartBook);
 
 module.exports = buyersRouter;

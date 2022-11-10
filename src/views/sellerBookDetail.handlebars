@@ -11,7 +11,11 @@
                 <h2>{{name}}</h2>
                 <h5>Seller: <a href="/sellers/{{seller_id}}">{{full_name}}</a></h5><br>
                 <h2>₹  {{price}}</h2><br>
-                <a href="/" class="btn">Delete Book</a>
+                <h1> Book Id: {{book_id}}</h1><br>
+                <form action="/seller/delete" method="POST" class="check">
+                    <input type="number" name="bookId" id="book_id" placeholder="Enter book id listed above" value={{bookId}}><br><br>
+                    <input type="submit" value="Delete Book" class="btn">
+                </form>
             </div>
         </div>
         <div class="book-section-two">

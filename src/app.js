@@ -103,6 +103,7 @@ app.get('*', (req, res)=>{
     
     res.render('pageNotFound.handlebars', {
         authId: id,
+        title: '404 Not Found',
         layout: 'main.handlebars'
     })
 });
