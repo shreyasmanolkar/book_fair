@@ -1,4 +1,4 @@
- {{#each data.bookInfo}}
+ {{!-- {{#each data.bookInfo}}
 
  <div class="display-b">
         <div class="book-section-one">
@@ -9,14 +9,62 @@
             </div>
             <div class="b-detail">
                 <h2>{{name}}</h2>
-                <h5>Seller: <a href="#">{{full_name}}</a></h5><br>
+                <h5>Seller: <a href="/sellers/{{seller_id}}">{{full_name}}</a></h5><br>
                 <h2>₹  {{price}}</h2><br>
+
                 <div class="quantity">
                     <button class="sub b-btn-2">-</button>
                     <span class="qty">1</span>
                     <button class="add b-btn-2">+</button><br><br>
                 </div>
                 <button class="b-btn" >Add To Cart</button>
+            </div>
+        </div>
+        <div class="book-section-two">
+            <h4>Description:</h4><br>
+            <p>{{description}}</p>
+            </div>
+</div>
+
+{{/each}} --}}
+
+{{#each errors}}
+    <div class="errors">
+        <p style="color: red; padding: 20px 0; text-align:center; font-size: 2em;">{{text}}</p>
+    </div>
+{{/each}}
+        
+ 
+ {{#each data.bookInfo}}
+ <div class="display-b">
+        <div class="book-section-one">
+            <div class=" b-book-image">
+                <div class="b-img">
+                    <img  class="b-img" src={{image_url}} alt="book-img">
+                </div>
+            </div>
+            <div class="b-detail">
+                <h1>{{name}}</h1>
+                <h3>Seller: <a href="/sellers/{{seller_id}}">{{full_name}}</a></h3><br>
+                <h1>₹  {{price}}</h1><br>
+                <h1> Book Id: {{book_id}}</h1><br>
+
+                <form class="check" action="/books/cart" method="POST">
+                    <select name="quantity" id="quantity" value={{quantity}}>
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select><br><br><br>
+                    <input type="number" name="bookId" id="seller_id" placeholder="Enter book id listed above" value={{bookId}}><br><br>
+                    <input type="submit" value="Add To Cart" class="b-btn">
+                </form>
             </div>
         </div>
         <div class="book-section-two">

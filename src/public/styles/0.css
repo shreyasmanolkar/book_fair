@@ -584,10 +584,25 @@ header i{
     width: 400px;
 }
 
+.b-btn:hover{
+    cursor: pointer;
+}
+
 .b-btn-2{
     background-color: #000000;
     color: #FFFFFF;
     padding: 10px;
+}
+
+.check select{
+    background-color: #000000;
+    color: #FFFFFF;
+    font-size: 1.2em;
+}
+
+.check input{
+    width: 100%;
+    padding: 8px 6px;
 }
 
 .book-section-two{

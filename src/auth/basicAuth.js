@@ -5,7 +5,7 @@ function authUser(req, res, next){
     let reqUser = req.user;
     let errors = [];
 
-    if(reqUser == null || undefined){
+    if(reqUser[0] == null || undefined){
         res.status(403);
 
         errors.push({text: 'You Need To Sign in'});
