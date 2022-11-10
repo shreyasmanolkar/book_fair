@@ -1,7 +1,11 @@
 const pool = require('../../models/database');
+const authId = require('../../auth/authId');
 
 async function allSellers(req, res){
     try {
+
+        let id = authId[authId.length - 1];
+
         const allSellers = await pool.query(
             `SELECT * 
             FROM "public"."sellers"`,
@@ -13,6 +17,7 @@ async function allSellers(req, res){
 
         res.render('allSellers', {
             data,
+            authId: id,
             layout: 'main.handlebars'
         });
 
@@ -23,6 +28,7 @@ async function allSellers(req, res){
 
 async function viewSellerProfile(req, res){   
     try {
+        let id = authId[authId.length - 1];
         const sellerId = Number(req.params.sellerId);
 
         const sellerDetails = await pool.query(
@@ -34,6 +40,7 @@ async function viewSellerProfile(req, res){
 
         if(!sellerDetails.rows[0]){
             res.render('sellerNotFound',{
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -44,6 +51,7 @@ async function viewSellerProfile(req, res){
 
             res.render('viewSellerProfile', {
                 data,
+                authId: id,
                 layout: 'main.handlebars'
             });
         }
@@ -54,6 +62,7 @@ async function viewSellerProfile(req, res){
 
 async function viewSellerBooks(req, res){  
     try {
+        let id = authId[authId.length - 1];
         const sellerId = Number(req.params.sellerId);
 
         const sellerName = await pool.query(
@@ -64,7 +73,7 @@ async function viewSellerBooks(req, res){
         );
 
         const sellerBooks = await pool.query(
-            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id
+            `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id, b.book_id
             FROM "public"."books" AS "b"
             JOIN "public"."sellers" AS "s"
             ON b.seller_id = s.seller_id
@@ -74,6 +83,7 @@ async function viewSellerBooks(req, res){
             
         if(!sellerBooks.rows[0]){
             res.render('viewSellerBooksNotFound', {
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -85,6 +95,7 @@ async function viewSellerBooks(req, res){
             
             res.render('viewSellerBooks', {
                 data,
+                authId: id,
                 layout: 'main.handlebars'
             });
         }

@@ -2,13 +2,21 @@ const pool = require('../../models/database');
 const authId = require('../../auth/authId');
 
 function buyerAuth(req, res){
+    
+    let id = authId[authId.length - 1];
+
     res.render('buyer-sign-log', {
+        authId: id,
         layout: 'main.handlebars'
     });
 };
 
 async function buyerSignupDisplay(req, res){
+
+    let id = authId[authId.length - 1];
+
     res.render('buyer-sign-up', {
+        authId: id,
         layout: 'main.handlebars'
     });
 }
@@ -16,6 +24,7 @@ async function buyerSignupDisplay(req, res){
 async function buyerSignup(req, res){
     
     try{
+        let id = authId[authId.length - 1];
         let { full_name, email, address, phone_number } = req.body;     
         let errors = [];
 
@@ -45,6 +54,7 @@ async function buyerSignup(req, res){
                 email, 
                 address, 
                 phone_number,
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -113,13 +123,16 @@ async function buyerSignup(req, res){
 };
 
 async function buyerLoginDisplay(req, res){
+    let id = authId[authId.length - 1];
     res.render('buyer-log-in', {
+        authId: id,
         layout: 'main.handlebars'
     });
 }
 
 async function buyerLogin(req, res){
     try{
+        let id = authId[authId.length - 1];
         let { full_name, email } = req.body;
         let errors = [];
 
@@ -139,6 +152,7 @@ async function buyerLogin(req, res){
                 errors,
                 full_name,
                 email,
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -159,6 +173,7 @@ async function buyerLogin(req, res){
                     errors,
                     full_name,
                     email,
+                    authId: id,
                     layout: 'main.handlebars'
                 });
 
@@ -179,6 +194,7 @@ async function buyerLogin(req, res){
 
 async function buyerProfile(req, res){
     try {
+        let id = authId[authId.length - 1];
         const buyerId = Number(req.params.buyerId);
 
         const buyerDetails = await pool.query(
@@ -192,6 +208,7 @@ async function buyerProfile(req, res){
         
         if(!buyerDetails.rows[0]){
             res.render('buyerProfileNotFound',{
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -202,6 +219,7 @@ async function buyerProfile(req, res){
 
             res.render('buyerProfile', {
                 data,
+                authId: id,
                 layout: 'main.handlebars'
             });
         }
@@ -213,6 +231,7 @@ async function buyerProfile(req, res){
 
 async function buyerCart(req, res){
     try {
+        let id = authId[authId.length - 1];
         const buyerId = Number(req.params.buyerId);
         
         const orderDetail = await pool.query(
@@ -237,6 +256,7 @@ async function buyerCart(req, res){
 
         if(!orderDetail.rows[0]){
             res.render('emptyCart', {
+                authId: id,
                 layout: 'main.handlebars'
             });
         } else {
@@ -247,6 +267,7 @@ async function buyerCart(req, res){
 
             res.render('buyerCart', {
                 data,
+                authId: id,
                 layout: 'main.handlebars'
             });
         }

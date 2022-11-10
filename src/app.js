@@ -83,12 +83,10 @@ app.get('/', async (req, res) => {
         
         res.render('home', {
             data,
+            authId: id,
             title: 'Home Page',
-            id,
             layout: 'main.handlebars'
         });
-
-        // res.json(data);
         
     } catch(err){
         console.error(err.message);
@@ -99,5 +97,14 @@ app.use('/seller', sellerRouter);
 app.use('/buyer', buyerRouter);
 app.use('/sellers', viewSellersRouter);
 app.use('/books', booksRouter);
+
+app.get('*', (req, res)=>{
+    let id = authId[authId.length - 1];
+    
+    res.render('pageNotFound.handlebars', {
+        authId: id,
+        layout: 'main.handlebars'
+    })
+});
 
 module.exports = app;

@@ -615,7 +615,7 @@ header i{
 
 /* -------------------------- 404 ------------------- */
 
-.error{
+.found-error{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -624,7 +624,7 @@ header i{
     overflow-y: hidden;
 }
 
-.error h1:first-child{
+.found-error h1:first-child{
     font-size: 20em;
 }
 

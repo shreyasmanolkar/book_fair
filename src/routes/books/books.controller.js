@@ -4,6 +4,8 @@ const authId = require('../../auth/authId');
 async function allBooks(req, res){
     try{
 
+        let id = authId[authId.length - 1];
+
         const allBooks = await pool.query(
             `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id, b.book_id
             FROM "public"."books" AS "b"
@@ -17,6 +19,7 @@ async function allBooks(req, res){
 
         res.render('allBooks', {
             data,
+            authId: id,
             layout: "main.handlebars"
         })
 
@@ -27,6 +30,9 @@ async function allBooks(req, res){
 
 async function bookDetail(req, res){
     try{
+
+        let id = authId[authId.length - 1];
+
         const bookId = Number(req.params.bookId);
 
         const bookInfo = await pool.query(
@@ -44,6 +50,7 @@ async function bookDetail(req, res){
         
         res.render('bookDetail', {
             data,
+            authId: id,
             layout: 'main.handlebars'
         });
         
