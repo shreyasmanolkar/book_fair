@@ -36,7 +36,13 @@
         {{/each}}
 
     </div>
+
+    {{#each data.total}}
+
     <div class="total">
-        <h1>Total Amount <span>₹ 901</span></h1>
+        <h1>Total Amount <span>₹ {{sum}}</span></h1>
         <button class="btn">Proceed To Buy</button>
     </div>
+
+
+    {{/each}}

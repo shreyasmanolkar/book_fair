@@ -263,6 +263,20 @@ async function buyerCart(req, res){
             [buyerId]
         );
 
+        const total = await pool.query(
+            `SELECT 
+            SUM(o.quantity * b.price)
+            FROM "public"."orders" AS "o" 
+            JOIN "public"."books" AS "b" 
+            ON o.book_id = b.book_id
+            JOIN "public"."carts" AS "buy"
+            ON o.cart_id = buy.cart_id
+            JOIN "public"."sellers" AS "s"
+            ON b.seller_id = s.seller_id
+            WHERE buy.buyer_id = $1`,
+            [buyerId]
+        );
+
         if(!orderDetail.rows[0]){
             res.render('emptyCart', {
                 authId: id,
@@ -272,7 +286,8 @@ async function buyerCart(req, res){
         } else {
 
             let data = {
-                orderDetail: orderDetail.rows
+                orderDetail: orderDetail.rows,
+                total: total.rows
             };
 
             res.render('buyerCart', {
