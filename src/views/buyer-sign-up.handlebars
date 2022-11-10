@@ -1,6 +1,9 @@
 <header>
     <h1><a href="/">BookFair</a></h1>
-    <input type="text" name="search" id="search" placeholder="Search Books" >
+    <form action="/books/search">
+        <input type="text" name="term" id="search" placeholder="Search Books" >
+        <input type="submit" value="Search" class="srch-btn">
+    </form>
     <div>
         <a href="/buyer/{{authId}}/cart"><i class="fas fa-shopping-cart"></i></a>
         <a href="/buyer/{{authId}}"><i class="fas fa-user-alt"></i></a>

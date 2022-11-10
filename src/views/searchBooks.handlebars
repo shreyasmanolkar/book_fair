@@ -9,24 +9,9 @@
         <a href="/buyer/{{authId}}"><i class="fas fa-user-alt"></i></a>
     </div>
 </header>
+ <div class="display-mid">
 
-<div class="banner-f"></div>
-    <div class="profile-mid-center">
-        <i class="fas fa-user-tie"></i>
-    </div>
-    <div class="title-mid">
-        <h1>ALL Books</h1>
-        <h3>Owner</h3>
-        {{#each data.sellerName}}
-        <p>{{full_name}}</p>
-        {{else}}
-        <p>Lorem</p>
-        {{/each}}
-    </div>
-
-    <div class="display-mid">
-
-        {{#each data.sellerBooks}}
+        {{#each data.searchBooks}}
 
         <div class="book-display-shops">
             <div class="book-image">

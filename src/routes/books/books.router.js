@@ -9,10 +9,12 @@ booksRouter.use(express.json());
 const {
     allBooks,
     bookDetail,
-    addToCart
+    addToCart,
+    searchBooks
 } = require('./books.controller');
 
 booksRouter.get('/', allBooks);
+booksRouter.get('/search', searchBooks);
 
 booksRouter.get('/:bookId', setBuyer, authUser, bookDetail);
 

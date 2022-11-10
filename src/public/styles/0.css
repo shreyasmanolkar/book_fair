@@ -48,16 +48,36 @@ header h1 a{
     color: #FFFFFF;
 }
 
-header #search{
+header form{
     width: 50%;
+    display: flex;
+}
+
+header form #search{
+    width: 75%;
     height: 35px;
-    border-radius: 15px;
+    border-radius: 15px 0 0 15px;
     padding-left: 20px;
 }
 
-header #search:hover{
+header form #search:hover{
     bottom: none;
     outline: none;
+}
+
+header form .srch-btn{
+    /* background-color: #000000; */
+    background-color: #222222;
+    color: #FFFFFF;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    padding: 0 10px;
+    border-radius: 0 15px 15px 0;
+}
+
+header form .srch-btn:hover{
+    cursor: pointer;
 }
 
 header div{
@@ -266,7 +286,8 @@ header i{
 
 .profile-mid-center{
     position: absolute;
-    background-color: #44B0E6;
+    /* background-color: #44B0E6; */
+    background-color: #1E1E1E;
     width: 120px;
     height: 120px;
     top: 250px;
@@ -377,7 +398,8 @@ header i{
 
 .seller-profile{
     position: absolute;
-    background-color: #44B0E6;
+    /* background-color: #44B0E6; */
+    background-color: #1E1E1E;
     width: 120px;
     height: 120px;
     top: -20%;
@@ -427,7 +449,8 @@ header i{
 
 .profile-mid-mid{
     position: absolute;
-    background-color: #44B0E6;
+    /* background-color: #44B0E6; */
+    background-color: #1E1E1E;
     width: 120px;
     height: 120px;
     top: 80px;
@@ -642,7 +665,8 @@ header i{
 
 .profile-d{
     position: absolute;
-    background-color: #44B0E6;
+    /* background-color: #44B0E6; */
+    background-color: #1E1E1E;
     width: 200px;
     height: 200px;
     top: 100px;

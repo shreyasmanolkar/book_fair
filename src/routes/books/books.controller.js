@@ -155,8 +155,34 @@ async function addToCart(req, res){
     }
 }
 
+async function searchBooks(req, res){
+   const { term } = req.query;
+   let Aterm = `%${term}%`;
+
+   const searchBooks = await pool.query(
+    `SELECT b.name, b.image_url, SUBSTRING( b.description FOR 300) , b.price, s.full_name AS "seller_name", s.seller_id, b.book_id
+    FROM "public"."books" AS "b"
+    JOIN "public"."sellers" AS "s"
+    ON b.seller_id = s.seller_id
+    WHERE "name" ILIKE $1`,
+    [Aterm]
+   );
+
+   let data = {
+    searchBooks: searchBooks.rows
+   };
+
+   res.render('searchBooks', {
+    data,
+    title: 'Search Books',
+    layout: "main.handlebars"
+    });
+
+}
+
 module.exports = {
     allBooks,
     bookDetail,
-    addToCart
+    addToCart,
+    searchBooks
 };
