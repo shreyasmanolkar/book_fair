@@ -38,11 +38,3 @@ It is a bookfair application, where multiple sellers can register themselves & s
 ## Badges
 
 ![MIT License](https://img.shields.io/badge/App-BOOKFair-green.svg)
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
-
