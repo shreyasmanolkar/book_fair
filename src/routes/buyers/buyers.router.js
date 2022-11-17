@@ -29,6 +29,6 @@ buyersRouter.use(authUser);
 buyersRouter.get('/:buyerId', authBuyer, buyerProfile);
 buyersRouter.get('/:buyerId/cart', authBuyer, buyerCart);
 
-buyersRouter.post('/bookDelete', deleteCartBook);
+buyersRouter.delete('/bookDelete', deleteCartBook);
 
 module.exports = buyersRouter;
