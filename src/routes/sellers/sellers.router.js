@@ -44,6 +44,6 @@ sellersRouter.get('/:sellerId/books/:bookId', authSeller, sellersBook);
 
 sellersRouter.get('/:sellerId/orders', authSeller, sellersOrders);
 
-sellersRouter.post('/seller/delete', sellerDelete);
+sellersRouter.delete('/seller/delete', sellerDelete);
 
 module.exports = sellersRouter;
