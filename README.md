@@ -34,7 +34,7 @@ It is a bookfair application, where multiple sellers can register themselves & s
     - Server side
         - Node.js, express.js, Postgres.
     - Hosting
-        - Railway.
+        - Railway.app
 ## Badges
 
 ![MIT License](https://img.shields.io/badge/App-BOOKFair-green.svg)
